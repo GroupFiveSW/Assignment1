@@ -9,8 +9,8 @@ Function to find distance between two points p1,p2 in the plane. Needed in the f
 
 LIC1, LIC3, LIC6, LIC7, LIC12
 
-#### containsCircle(Radius,set points)
-Function to determine if points are contained in a circle with Radius.Needed in the following LIC's:
+#### containsCircle(R,{points})
+Function to determine if the set {points} are contained in a circle with Radius R.Needed in the following LIC's:
 
 LIC1, LIC8, LIC13
 
