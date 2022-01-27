@@ -1,8 +1,5 @@
 package decide;
 
-
-
-
 public class Decide {
 
     //Constant
