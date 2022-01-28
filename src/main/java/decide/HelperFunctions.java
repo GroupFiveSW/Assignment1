@@ -7,16 +7,25 @@ import java.util.*;
 
 public class HelperFunctions {
 
-//    double getAngle(double[] p1, double[] p1){
-//        return
-//    }
+    double getAngle(double[] p1, double[] p2, double[] p3){
+        double[] vec1 = { p2[0]-p1[0],p2[1]-p1[1]};
+        double[] vec2 = { p2[0]-p3[0],p2[1]-p3[1]};
+
+        double[] zeroVec = {0,0};
+
+
+        double dotProd = vec1[0]*vec2[0] + vec1[1]*vec2[1];
+        double l1 = euclideanDistance(vec1,zeroVec);
+        double l2 = euclideanDistance(vec2,zeroVec);
+
+
+        double angle = Math.acos(dotProd/l1*l2);
+        double nDegrees =  angle * 180 / Decide.PI;
+        return nDegrees;
+    }
 
 
     double euclideanDistance(double[] p1,double[] p2){
-
-        System.out.print("hejsan1");
-
-        System.out.print("hejsan2");
 
         return Math.sqrt(   Math.pow((p1[0]-p2[0]),2)     +   Math.pow((p1[1]-p2[1]),2)    );
     }
