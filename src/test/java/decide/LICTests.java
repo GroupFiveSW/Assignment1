@@ -43,6 +43,10 @@ class LICTests {
         assertEquals(false, Decide.CMV2[4], "Condition 4 should not be satisfied");
     }
 
+    /**
+     * Tests LIC 5 with 5 x-coordinates where some are followed by a smaller one.
+     * 1 - 3 < 0 meaning it should be satisfied.
+     */
     @Test
     void condition5Satisfied() {
         LIC lic = new LIC();
@@ -55,6 +59,10 @@ class LICTests {
         assertTrue(Decide.CMV2[5], "Condition 5 should be satisfied");
     }
 
+    /**
+     * Tests LIC 5 with 5 x-coordinates where all are followed by a larger one.
+     * X[i+1] - X[i] > 0 for all i meaning it should not be satisfied.
+     */
     @Test
     void condition5NotSatisfied() {
         LIC lic = new LIC();

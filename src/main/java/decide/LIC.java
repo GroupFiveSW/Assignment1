@@ -47,7 +47,7 @@ public class LIC {
     }
 
     /**
-     * Checks wether LIC 5 is satisfied.
+     * Checks whether LIC 5 is satisfied.
      * Sets <code>Decide.CMV[5]</code> to result.
      */
     public void condition5() {
