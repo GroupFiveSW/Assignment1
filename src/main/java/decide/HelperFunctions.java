@@ -7,32 +7,80 @@ import java.util.*;
 
 public class HelperFunctions {
 
-//    double getAngle(double[] p1, double[] p1){
-//        return
-//    }
+    double getAngle(double[] p1, double[] p2, double[] p3){
+        double[] vec1 = { p2[0]-p1[0],p2[1]-p1[1]};
+        double[] vec2 = { p2[0]-p3[0],p2[1]-p3[1]};
+
+        double[] zeroVec = {0,0};
+
+        double dotProd = vec1[0]*vec2[0] + vec1[1]*vec2[1];
+        double l1 = euclideanDistance(vec1,zeroVec);
+        double l2 = euclideanDistance(vec2,zeroVec);
+
+
+        double angle = Math.acos(dotProd/l1*l2);
+        double nDegrees =  angle * 180 / Decide.PI;
+        return nDegrees;
+    }
 
 
     double euclideanDistance(double[] p1,double[] p2){
 
-        System.out.print("hejsan1");
-
-        System.out.print("hejsan2");
-
         return Math.sqrt(   Math.pow((p1[0]-p2[0]),2)     +   Math.pow((p1[1]-p2[1]),2)    );
     }
 
+    double calcTriangleArea(double[] p1,double[] p2, double[] p3){
+        double a = euclideanDistance(p1,p2);
+        double b =  euclideanDistance(p1,p3);
+        double c =  euclideanDistance(p2,p3);
+
+        double S = (a + b + c) / 2;
+        double Area = Math.sqrt(S * (S - a) * (S - b) * (S - c));
+        return Area;
+    }
+
+
+    /**
+     *
+     * @param R: Radius of circle
+     * @param points: Array of three points
+     * @return Boolean: if the points fit inside any circle with radius R
+     */
     Boolean insideCircle(Double R, double[][] points) {
-        double a = euclideanDistance(points[0],points[1]);
-        double b =  euclideanDistance(points[0],points[2]);
-        double c =  euclideanDistance(points[1],points[2]);
 
-        double S = (a+b+c)/2;
-        double Area = Math.sqrt( S * (S - a) * (S - b) * (S - c)  );
-        double compareRadius = a * b * c / (4 * Area);
+        double[] p1 = points[0];
+        double[] p2 = points[1];
+        double[] p3 = points[2];
 
-        System.out.print("\n\nCompareradius: " +  compareRadius);
+        double a = euclideanDistance(p1,p2);
+        double b =  euclideanDistance(p1,p3);
+        double c =  euclideanDistance(p2,p3);
 
-        return compareRadius < R;
+        double[] middle_point;
+
+        double biggest_dist = Math.max(a,Math.max(b,c));
+        if (a == biggest_dist) {
+            middle_point = p3;
+        }
+        else if (b == biggest_dist) {
+            middle_point = p2;
+        }
+        else {
+            middle_point = p1;
+        }
+
+        double angle = getAngle(p1,middle_point,p3);
+
+        if (angle > 90) {
+            return !(biggest_dist > 2 * R);
+        }
+
+        else {
+            double Area = calcTriangleArea(p1,p2,p3);
+            double compareRadius = a * b * c / (4 * Area);
+            return compareRadius < R;
+
+        }
     }
 
     public static void main(String[] args) {
