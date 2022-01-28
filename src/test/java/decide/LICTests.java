@@ -37,6 +37,7 @@ class LICTests {
         Decide.PARAMETERS2.QUADS = 1;
         Decide.X2 = new double[]{0, -1};
         Decide.Y2 = new double[]{-2, -1};
+        Decide.NUMPOINTS2 = 2;
 
         lic.condition4();
 
