@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class HelperFunctionsTest {
 
     HelperFunctions H;
+
     double[] point1 = {-1,0};
     double[] point2 = {0,0};
     double[] point3 = {1,0};
@@ -27,9 +28,11 @@ class HelperFunctionsTest {
 
     double epsilon = Math.pow(10,-3);
 
+
     @BeforeEach
     void setUp() {
         H = new HelperFunctions();
+
     }
 
     @AfterEach
@@ -70,6 +73,7 @@ class HelperFunctionsTest {
     void getAngleTestPointsOnLine() {
         assertTrue((180-epsilon<H.getAngle(point1,point2,point3)) && ( H.getAngle(point1,point2,point3) < 180+epsilon));
 
+
     }
 
     @Test
@@ -78,6 +82,7 @@ class HelperFunctionsTest {
         double[] point2 = {3,4};
         assertEquals(5, H.euclideanDistance(point1,point2), "wrong distance calculated");
     }
+
 
 
 
@@ -108,6 +113,7 @@ class HelperFunctionsTest {
     void insideCircleFalseTest() {
         double[][] points = {point1,point2,point3};
         assertFalse(H.insideCircle(0.5, points));
+
     }
 
 }
