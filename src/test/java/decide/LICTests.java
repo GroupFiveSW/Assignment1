@@ -8,6 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LICTests {
 
+    LIC lic = new LIC();
+
+    HelperFunctions helper = new HelperFunctions();
+
     Decide D = new Decide();
     Random rand = new Random();
     Decide.CONNECTORS orr = Decide.CONNECTORS.ORR;
@@ -50,8 +54,32 @@ class LICTests {
     }
 
     /**
-     *
+     *Tests LIC 1 with a sequence of three planar points with a radius unable to collect
+     * all three points in a circle of that radius.
      */
+    @Test
+    void condition1Satisfied(){
+
+        double[] point1 = {-10,10};
+        double[] point2 = {0,0};
+        double[] point3 = {10,0};
+        double[][] triplet = {point1,point2,point3};
+        assertTrue(!helper.insideCircle(10.0, triplet));
+    }
+
+    /**
+     *Tests LIC 1 with a sequence of three planar points with a radius able to collect
+     * all three points in a circle of that radius.
+     */
+    @Test
+    void condition1NotSatisfied(){
+
+        double[] point1 = {-10,10};
+        double[] point2 = {0,0};
+        double[] point3 = {10,0};
+        double[][] triplet = {point1,point2,point3};
+        assertFalse(!helper.insideCircle(20.0, triplet));
+    }
 
     /**
      * Tests LIC 4 with 2 points in 2 quadrants, requiring more than 1 quadrant.
@@ -59,7 +87,7 @@ class LICTests {
      */
     @Test
     void condition4Satisfied() {
-        LIC lic = new LIC();
+
 
         Decide.PARAMETERS2.Q_PTS = 2;
         Decide.PARAMETERS2.QUADS = 1;
@@ -84,6 +112,8 @@ class LICTests {
         Decide.PARAMETERS2.QUADS = 1;
         Decide.X2 = new double[]{0, -1};
         Decide.Y2 = new double[]{-2, -1};
+        Decide.NUMPOINTS2 = 2;
+
 
         lic.condition4();
 
