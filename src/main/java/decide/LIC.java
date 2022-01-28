@@ -46,4 +46,23 @@ public class LIC {
         Decide.CMV2[4] = false;
     }
 
+    /**
+     * Checks wether LIC 5 is satisfied.
+     * Sets <code>Decide.CMV[5]</code> to result.
+     */
+    public void condition5() {
+        double[] xCoords = Decide.X2;
+
+        // Iterate over all consecutive ranges of length 2
+        for (int firstIndex = 0; firstIndex <= Decide.NUMPOINTS2 - 2; firstIndex++) {
+            int secondIndex = firstIndex + 1;
+            if (xCoords[secondIndex] - xCoords[firstIndex] < 0) {
+                Decide.CMV2[5] = true;
+                return;
+            }
+        }
+
+        Decide.CMV2[5] = false;
+    }
+
 }

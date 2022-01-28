@@ -42,4 +42,28 @@ class LICTests {
 
         assertEquals(false, Decide.CMV2[4], "Condition 4 should not be satisfied");
     }
+
+    @Test
+    void condition5Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{1,3,1,5,2};
+        Decide.NUMPOINTS2 = 5;
+
+        lic.condition5();
+
+        assertTrue(Decide.CMV2[5], "Condition 5 should be satisfied");
+    }
+
+    @Test
+    void condition5NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{1,2,3,4,5};
+        Decide.NUMPOINTS2 = 5;
+
+        lic.condition5();
+
+        assertFalse(Decide.CMV2[5], "Condition 5 should not be satisfied");
+    }
 }
