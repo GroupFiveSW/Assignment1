@@ -1,10 +1,63 @@
 package decide;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LICTests {
+
+    /**
+     * Tests LIC 3 with only 3 points, that make a triangle with area = 4.5.
+     * 4.5 > 3 and therefore satisfies LIC 3.
+     */
+    @Test
+    void condition3Satisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 3;
+        Decide.PARAMETERS2.AREA1 = 3;
+        Decide.X2 = new double[]{1, 4, 3};
+        Decide.Y2 = new double[]{1, 1, 4};
+
+        lic.condition3();
+
+        assertTrue(Decide.CMV2[3]);
+    }
+
+    /**
+     * Tests LIC 3 with the last three points satisfying the condition.
+     */
+    @Test
+    void condition3SatisfiedWithLast3(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 6;
+        Decide.PARAMETERS2.AREA1 = 3;
+        Decide.X2 = new double[]{1, 2, 3, 1, 4, 3};
+        Decide.Y2 = new double[]{1, 2, 2, 1, 1, 4};
+
+        lic.condition3();
+
+        assertTrue(Decide.CMV2[3]);
+    }
+    /**
+     * Tests LIC 3 with no consecutive points satisfying the condition.
+     */
+    @Test
+    void condition3NotSatisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 6;
+        Decide.PARAMETERS2.AREA1 = 3;
+        Decide.X2 = new double[]{1, 2, 3, 1, 2, 3};
+        Decide.Y2 = new double[]{1, 2, 2, 1, 1, 4};
+
+        lic.condition3();
+
+        assertFalse(Decide.CMV2[3]);
+    }
 
     /**
      * Tests LIC 4 with 2 points in 2 quadrants, requiring more than 1 quadrant.
