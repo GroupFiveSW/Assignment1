@@ -4,7 +4,7 @@ public class LIC {
 
     /**
      * Checks whether LIC 3 is satisfied.
-     * Sets <code>Decide.CMV[4]</code> to result
+     * Sets <code>Decide.CMV[3]</code> to result
      */
     public void condition3() {
         HelperFunctions helper = new HelperFunctions();
