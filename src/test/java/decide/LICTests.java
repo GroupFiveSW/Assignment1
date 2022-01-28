@@ -8,8 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LICTests {
 
-    LIC lic = new LIC();
-
     HelperFunctions helper = new HelperFunctions();
 
     Decide D = new Decide();
@@ -87,7 +85,7 @@ class LICTests {
      */
     @Test
     void condition4Satisfied() {
-
+        LIC lic = new LIC();
 
         Decide.PARAMETERS2.Q_PTS = 2;
         Decide.PARAMETERS2.QUADS = 1;
@@ -114,9 +112,40 @@ class LICTests {
         Decide.Y2 = new double[]{-2, -1};
         Decide.NUMPOINTS2 = 2;
 
-
         lic.condition4();
 
         assertEquals(false, Decide.CMV2[4], "Condition 4 should not be satisfied");
+    }
+
+    /**
+     * Tests LIC 5 with 5 x-coordinates where some are followed by a smaller one.
+     * 1 - 3 < 0 meaning it should be satisfied.
+     */
+    @Test
+    void condition5Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{1,3,1,5,2};
+        Decide.NUMPOINTS2 = 5;
+
+        lic.condition5();
+
+        assertTrue(Decide.CMV2[5], "Condition 5 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 5 with 5 x-coordinates where all are followed by a larger one.
+     * X[i+1] - X[i] > 0 for all i meaning it should not be satisfied.
+     */
+    @Test
+    void condition5NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{1,2,3,4,5};
+        Decide.NUMPOINTS2 = 5;
+
+        lic.condition5();
+
+        assertFalse(Decide.CMV2[5], "Condition 5 should not be satisfied");
     }
 }
