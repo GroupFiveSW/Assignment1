@@ -6,7 +6,6 @@ public class Decide {
     static double PI = 3.1415926535;
 
     ///////Type Declarations
-    //@TODO: Template had NOTUSED=777 so we might need to implement default value for NOTUSED in JAVA
     enum CONNECTORS {
         NOTUSED,
         ORR,
@@ -14,7 +13,6 @@ public class Decide {
     }
 
 
-    //@TODO: Template had LT=1111 so we might need to implement default value for LT in JAVA
     enum COMPTYPE {
         EQ,
         GT,
