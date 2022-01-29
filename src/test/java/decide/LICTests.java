@@ -64,7 +64,28 @@ class LICTests {
     }
 
     /**
+     * Test LIC 0 with 3 points thats at least 1 length unit apart.
+     * Tests if at least one set of two consecutive data points in are a distance greater than LENGTH1 apart.
+     */
+    @Test
+    void condition0Test() {
+        LIC lic = new LIC();
 
+        Decide.X2 = new double[]{-1,0,1};
+        Decide.Y2 = new double[]{0,0,0};
+
+        Decide.PARAMETERS2.LENGTH1 = 0.5;
+        lic.condition0();
+        assertEquals(true, Decide.CMV2[0], "Condition 0 should be satisfied");
+
+        Decide.PARAMETERS2.LENGTH1 = 2;
+        lic.condition0();
+        assertEquals(false, Decide.CMV2[0], "Condition 0 should not be satisfied");
+
+
+    }
+
+    /**
      * Test LIC 2 with 3 points that form an angle of 90 degrees.
      * As such LIC 2 should be satisfied since 90 degrees is > PI+EPSILON
      */
