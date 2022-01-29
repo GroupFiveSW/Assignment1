@@ -3,6 +3,32 @@ package decide;
 public class LIC {
 
     /**
+     * Checks whether LIC 0 is satisfied. Meaning if it exists at least one set of two consecutive data points in 2D array that are a distance greater than
+     * the length, LENGTH1, apart.
+     * (0 ≤ LENGTH1)
+     */
+    public boolean condition0() {
+
+        double [] p1 = new double[2];
+        double [] p2 = new double[2];
+        int array_len = Decide.X2.length;
+        double len = Decide.PARAMETERS2.LENGTH1;
+
+        for (int i = 0; i < array_len - 1; ++i) {
+            p1[0] = Decide.X2[i];
+            p1[1] = Decide.Y2[i];
+
+            p2[0] = Decide.X2[i+1];
+            p2[1] = Decide.Y2[i+1];
+            if(HelperFunctions.euclideanDistance(p1,p2) > len){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    /**
      * Checks whether LIC 4 is satisfied.
      * Sets <code>Decide.CMV[4]</code> to result.
      */
