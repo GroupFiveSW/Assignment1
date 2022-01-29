@@ -21,7 +21,7 @@ class LICTests {
 
         lic.condition2();
 
-        assertEquals(true, Decide.CMV2[2]);
+        assertEquals(true, Decide.CMV2[2], "Condition 2 should be satisfied");
     }
 
     /**
@@ -38,7 +38,7 @@ class LICTests {
         Decide.NUMPOINTS2 = 3;
 
         lic.condition2();
-        assertFalse(Decide.CMV2[2]);
+        assertFalse(Decide.CMV2[2], "Condition 2 should not be satisfied");
     }
 
 

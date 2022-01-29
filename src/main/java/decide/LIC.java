@@ -7,7 +7,7 @@ public class LIC {
 
     /**
      * Checks whether LIC2 is satisfied
-     * Sets <code>Decide.CMV[4]</code> to true/false depending on whether LIC2 is satisfied or not.
+     * Sets <code>Decide.CMV[2]</code> to true/false depending on whether LIC2 is satisfied or not.
      */
     public void condition2() {
         boolean conditionSatisfied = false;
