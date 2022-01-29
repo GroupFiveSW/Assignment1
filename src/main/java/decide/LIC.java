@@ -35,6 +35,28 @@ public class LIC {
     }
 
     /**
+     * Checks whether LIC 3 is satisfied.
+     * Sets <code>Decide.CMV[3]</code> to result
+     */
+    public void condition3() {
+        HelperFunctions helper = new HelperFunctions();
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2-3; startIndex++) {
+
+            double[][] points ={{xCoords[startIndex], yCoords[startIndex]},
+                                {xCoords[startIndex+1], yCoords[startIndex+1]},
+                                {xCoords[startIndex+2], yCoords[startIndex+2]}};
+            if (helper.calcTriangleArea(points[0], points[1], points[2]) > Decide.PARAMETERS2.AREA1) {
+                Decide.CMV2[3] = true;
+                return;
+            }
+        }
+        Decide.CMV2[3] = false;
+    }
+
+    /**
      * Checks whether LIC 4 is satisfied.
      * Sets <code>Decide.CMV[4]</code> to result.
      */
@@ -76,6 +98,25 @@ public class LIC {
         }
 
         Decide.CMV2[4] = false;
+    }
+
+    /**
+     * Checks whether LIC 5 is satisfied.
+     * Sets <code>Decide.CMV[5]</code> to result.
+     */
+    public void condition5() {
+        double[] xCoords = Decide.X2;
+
+        // Iterate over all consecutive ranges of length 2
+        for (int firstIndex = 0; firstIndex <= Decide.NUMPOINTS2 - 2; firstIndex++) {
+            int secondIndex = firstIndex + 1;
+            if (xCoords[secondIndex] - xCoords[firstIndex] < 0) {
+                Decide.CMV2[5] = true;
+                return;
+            }
+        }
+
+        Decide.CMV2[5] = false;
     }
 
 }
