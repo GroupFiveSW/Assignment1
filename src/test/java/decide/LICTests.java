@@ -12,73 +12,54 @@ class LICTests {
 
     HelperFunctions helper = new HelperFunctions();
 
-    Decide D = new Decide();
     Random rand = new Random();
-    Decide.CONNECTORS orr = Decide.CONNECTORS.ORR;
-    Decide.CONNECTORS andd = Decide.CONNECTORS.ANDD;
-    Decide.CONNECTORS notused = Decide.CONNECTORS.NOTUSED;
 
 
-    @BeforeEach
-    void setUp(){
-        for(int i=0; i<100; i++){
-
-            D.X[i] = (rand.nextDouble()*200)-100;
-            D.X2[i] = D.X[i];
-
-            D.Y[i] = (rand.nextDouble()*200)-100;
-            D.Y2[i] = D.Y[i];
-        }
-
-        D.NUMPOINTS = rand.nextInt(60) +40;
-
-
-        for(int i = 0; i<15; i++){
-            for(int j = i; j<15;j++){
-                int r = rand.nextInt(2);
-                if(r==0){
-                    D.LCM[i][j] = orr;
-                    D.LCM[j][i] = orr;
-                }
-                else if (r==1){
-                    D.LCM[i][j] = andd;
-                    D.LCM[j][i] = andd;
-                }
-                else if (r==2){
-                    D.LCM[i][j] = notused;
-                    D.LCM[j][i] = notused;
-                }
-            }
-        }
-
-    }
 
     /**
-     *Tests LIC 1 with a sequence of three planar points with a radius unable to collect
-     * all three points in a circle of that radius.
+     *Tests LIC 1 with a sequence of NUMPOINTS planar points with a radius unable to collect
+     * any subsequence of three points in any circle of that radius.
      */
     @Test
     void condition1Satisfied(){
+        LIC lic = new LIC();
 
-        double[] point1 = {-10,10};
-        double[] point2 = {0,0};
-        double[] point3 = {10,0};
-        double[][] triplet = {point1,point2,point3};
-        assertTrue(!helper.insideCircle(10.0, triplet));
+        Decide.NUMPOINTS2 = rand.nextInt(60) + 40;
+        Decide.X2 = new double[100];
+        Decide.Y2 = new double[100];
+
+        for(int i=0; i<100; i++){
+            Decide.X2[i] = 3*i-50;
+            Decide.Y2[i] = 3*i-50;
+        }
+
+        Decide.PARAMETERS2.RADIUS1 = 4;
+        lic.condition1();
+
+        assertTrue(Decide.CMV2[1]);
     }
 
     /**
-     *Tests LIC 1 with a sequence of three planar points with a radius able to collect
-     * all three points in a circle of that radius.
+     *Tests LIC 1 with a sequence of NUMPOINTS planar points with a radius able to collect
+     * a subsequence of three points in a circle of that radius.
      */
     @Test
     void condition1NotSatisfied(){
+        LIC lic = new LIC();
 
-        double[] point1 = {-10,10};
-        double[] point2 = {0,0};
-        double[] point3 = {10,0};
-        double[][] triplet = {point1,point2,point3};
-        assertFalse(!helper.insideCircle(20.0, triplet));
+        Decide.NUMPOINTS2 = rand.nextInt(60) + 40;
+        Decide.X2 = new double[100];
+        Decide.Y2 = new double[100];
+
+        for(int i=0; i<100; i++){
+            Decide.X2[i] = i;
+            Decide.Y2[i] = i;
+        }
+
+        Decide.PARAMETERS2.RADIUS1 = 2;
+        lic.condition1();
+
+        assertFalse(Decide.CMV2[1]);
     }
 
     /**
@@ -87,6 +68,8 @@ class LICTests {
      */
     @Test
     void condition4Satisfied() {
+
+        LIC lic = new LIC();
 
 
         Decide.PARAMETERS2.Q_PTS = 2;

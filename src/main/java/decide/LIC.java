@@ -2,6 +2,39 @@ package decide;
 
 public class LIC {
 
+    HelperFunctions H = new HelperFunctions();
+
+    Decide D = new Decide();
+
+
+
+
+    /**
+     * Evaluates whether LIC1 is satisfied.
+     *Sets <Code>Decide.CMV[1]</Code> to true if satisified, else to false.
+     */
+
+    public void condition1(){
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+
+        for(int i = 0; i<=Decide.NUMPOINTS2-3;i++){
+            double[] point1 = {xCoords[i], yCoords[i]};
+            double[] point2 = {xCoords[i+1],yCoords[i+1]};
+
+            double[] point3 = {xCoords[i+2], yCoords[i+2]};
+
+            double[][] triplet = {point1,point2,point3};
+
+            if(!H.insideCircle(Decide.PARAMETERS2.RADIUS1, triplet)) {
+                Decide.CMV2[1] = true;
+                return;
+            }
+        }
+        Decide.CMV2[1] = false;
+        return;
+    }
+
     /**
      * Checks whether LIC 4 is satisfied.
      * Sets <code>Decide.CMV[4]</code> to result.
@@ -45,5 +78,6 @@ public class LIC {
 
         Decide.CMV2[4] = false;
     }
+
 
 }

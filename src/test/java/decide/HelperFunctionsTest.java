@@ -26,6 +26,12 @@ class HelperFunctionsTest {
     double[] point8 = {0,0};
     double[] point9 = {1,0};
 
+
+    //Large Circle
+    double[] point10 = {10,10};
+    double[] point11 = {0,0};
+    double[] point12 = {9,0};
+
     double epsilon = Math.pow(10,-3);
 
 
@@ -93,6 +99,8 @@ class HelperFunctionsTest {
         assertTrue(H.insideCircle(2.0, points));
     }
 
+
+
     @Test
     void insideCircleObtuseTest() {
         // Obtuse angle between points
@@ -114,6 +122,12 @@ class HelperFunctionsTest {
         double[][] points = {point1,point2,point3};
         assertFalse(H.insideCircle(0.5, points));
 
+    }
+
+    @Test
+    void insideCircleTestLargeCircleObtuseAngle() {
+        double[][] points = {point10,point11,point12};
+        assertTrue(H.insideCircle(7.5, points));
     }
 
 }
