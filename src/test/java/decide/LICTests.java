@@ -9,6 +9,42 @@ import static org.junit.jupiter.api.Assertions.*;
 class LICTests {
 
     /**
+
+     * Test LIC 2 with 3 points that form an angle of 90 degrees.
+     * As such LIC 2 should be satisfied since 90 degrees is > PI+EPSILON
+     */
+    @Test
+    void condition2Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0,0,1};
+        Decide.Y2 = new double[]{1,0,0};
+        Decide.PARAMETERS2.EPSILON = Math.pow(10,-3);
+        Decide.NUMPOINTS2 = 3;
+
+        lic.condition2();
+
+        assertEquals(true, Decide.CMV2[2], "Condition 2 should be satisfied");
+    }
+
+    /**
+     * Test LIC 2 with three points in which the last point coincides with vertex.
+     * As such LIC 2 should not be satisfied.
+     */
+    @Test
+    void condition2NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[] {0,1,1};
+        Decide.Y2 = new double[] {0,0,0};
+        Decide.PARAMETERS2.EPSILON = Math.pow(10, -3);
+        Decide.NUMPOINTS2 = 3;
+
+        lic.condition2();
+        assertFalse(Decide.CMV2[2], "Condition 2 should not be satisfied");
+    }
+
+    /**
      * Tests LIC 3 with only 3 points, that make a triangle with area = 4.5.
      * 4.5 > 3 and therefore satisfies LIC 3.
      */
