@@ -7,6 +7,11 @@ import java.util.*;
 
 public class HelperFunctions {
 
+    /**
+     *
+     * @param p1,p2,p3: three points in the plane
+     * @return double : Returns angle formed at vertex at point p2. 
+     */
     double getAngle(double[] p1, double[] p2, double[] p3){
         double[] vec1 = { p1[0]-p2[0],p1[1]-p2[1]};
         double[] vec2 = { p3[0]-p2[0],p3[1]-p2[1]};
