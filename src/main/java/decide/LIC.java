@@ -1,6 +1,60 @@
 package decide;
 
+import java.util.Arrays;
+
 public class LIC {
+    HelperFunctions H = new HelperFunctions();
+
+    /**
+     * Checks whether LIC2 is satisfied
+     * Sets <code>Decide.CMV[2]</code> to true/false depending on whether LIC2 is satisfied or not.
+     */
+    public void condition2() {
+        boolean conditionSatisfied = false;
+
+        // Iterate through all sets of three consecutive points
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - 3; startIndex++) {
+            double[] p1 = {Decide.X2[startIndex], Decide.Y2[startIndex]};
+            double[] p2 = {Decide.X2[startIndex+1], Decide.Y2[startIndex+1]};
+            double[] p3 = {Decide.X2[startIndex+2], Decide.Y2[startIndex+2]};
+
+            double angle = H.getAngle(p1,p2,p3);
+            if (angle < (Decide.PI - Decide.PARAMETERS2.EPSILON) || angle > (Decide.PI + Decide.PARAMETERS2.EPSILON)) {
+                // Check if first or last point coincides with vertex p2
+                if (Arrays.equals(p1,p2) || Arrays.equals(p2,p3)) {
+                    conditionSatisfied = false;
+                } else {
+                    conditionSatisfied = true;
+                    break;
+                }
+
+            }
+
+        }
+        Decide.CMV2[2] = conditionSatisfied;
+    }
+
+    /**
+     * Checks whether LIC 3 is satisfied.
+     * Sets <code>Decide.CMV[3]</code> to result
+     */
+    public void condition3() {
+        HelperFunctions helper = new HelperFunctions();
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2-3; startIndex++) {
+
+            double[][] points ={{xCoords[startIndex], yCoords[startIndex]},
+                                {xCoords[startIndex+1], yCoords[startIndex+1]},
+                                {xCoords[startIndex+2], yCoords[startIndex+2]}};
+            if (helper.calcTriangleArea(points[0], points[1], points[2]) > Decide.PARAMETERS2.AREA1) {
+                Decide.CMV2[3] = true;
+                return;
+            }
+        }
+        Decide.CMV2[3] = false;
+    }
 
     HelperFunctions H = new HelperFunctions();
 
