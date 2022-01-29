@@ -10,7 +10,7 @@ public class LIC {
      * the length, LENGTH1, apart.
      * (0 ≤ LENGTH1)
      */
-    public boolean condition0() {
+    public void condition0() {
 
         double [] p1 = new double[2];
         double [] p2 = new double[2];
@@ -22,10 +22,11 @@ public class LIC {
             p2[0] = Decide.X2[i+1];
             p2[1] = Decide.Y2[i+1];
             if(HelperFunctions.euclideanDistance(p1,p2) > Decide.PARAMETERS2.LENGTH1){
-                return true;
+                Decide.CMV2[0] = true;
+                return;
             }
         }
-        return false;
+        Decide.CMV2[0] = false;
 
     }
 

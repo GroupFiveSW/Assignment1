@@ -20,10 +20,13 @@ class LICTests {
         Decide.Y2 = new double[]{0,0,0};
 
         Decide.PARAMETERS2.LENGTH1 = 0.5;
-        assertTrue(lic.condition0(), "Condition 0 should be satisfied");
+        lic.condition0();
+        assertEquals(true, Decide.CMV2[0], "Condition 0 should be satisfied");
 
         Decide.PARAMETERS2.LENGTH1 = 2;
-        assertFalse(lic.condition0(), "Condition 0 should not be satisfied");
+        lic.condition0();
+        assertEquals(false, Decide.CMV2[0], "Condition 0 should not be satisfied");
+
 
     }
 
