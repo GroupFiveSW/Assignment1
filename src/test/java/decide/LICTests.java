@@ -44,7 +44,7 @@ class LICTests {
         assertFalse(Decide.CMV2[2], "Condition 2 should not be satisfied");
     }
 
-  
+    /**
      * Tests LIC 3 with only 3 points, that make a triangle with area = 4.5.
      * 4.5 > 3 and therefore satisfies LIC 3.
      */
