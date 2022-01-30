@@ -322,4 +322,47 @@ public class LIC {
         }
         Decide.CMV2[10] = false;
     }
+
+    /**
+     * Checks whether LIC 14 is satisfied.
+     * Sets <code>Decide.CMV2[14]</code> to true if LIC 14 is satisfied or false if not.
+     */
+    public void condition14() {
+        boolean area1 = false;
+        boolean area2 = false;
+
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+
+        int E_PTS = Decide.PARAMETERS2.E_PTS;
+        int F_PTS = Decide.PARAMETERS2.F_PTS;
+
+        // Starting condition
+        if (Decide.NUMPOINTS2 < 5 ){
+            Decide.CMV2[14] = false;
+            return;
+        }
+
+        // Iterate through sets of three points and check the LIC.
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - (E_PTS + F_PTS + 3); startIndex++) {
+            // List of three points where each point is a list of x,y coords. The points are separated by exactly A_PTS and B_PTS respectively.
+            double[][] points ={{xCoords[startIndex], yCoords[startIndex]},
+                                {xCoords[startIndex + E_PTS + 1 ], yCoords[startIndex + E_PTS + 1]},
+                                {xCoords[startIndex+ E_PTS + F_PTS + 2], yCoords[startIndex + E_PTS + F_PTS + 2]}};
+
+            if(H.calcTriangleArea(points[0], points[1], points[2]) > Decide.PARAMETERS2.AREA1) {
+                area1 = true;
+            }
+            if(H.calcTriangleArea(points[0], points[1], points[2]) < Decide.PARAMETERS2.AREA2) {
+                area2 = true;
+            }
+
+            if(area1 && area2){
+                Decide.CMV2[14] = true;
+                return;
+            }
+
+        }
+        Decide.CMV2[14] = false;
+    }
 }
