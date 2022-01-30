@@ -242,6 +242,48 @@ class LICTests {
         assertFalse(Decide.CMV2[5], "Condition 5 should not be satisfied");
     }
 
+
+
+    /**
+     * Test LIC 9 with angle PI/2 and epsilon less than PI/2.
+     * angle < PI - EPSILON, thus LIC 9 should be satisfied
+     */
+    @Test
+    void condition9Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0,0,0,0,1};
+        Decide.Y2 = new double[]{1,0,0,0,0};
+        Decide.PARAMETERS2.EPSILON = Decide.PI*0.4;
+        Decide.NUMPOINTS2 = Decide.X2.length;
+        Decide.PARAMETERS2.C_PTS = 1;
+        Decide.PARAMETERS2.D_PTS = 1;
+
+        lic.condition9();
+
+        assertTrue(Decide.CMV2[9], "Condition 9 should be satisfied");
+    }
+
+    /**
+     * Test LIC 9 with angle PI/2 and epsilon greater than PI/2.
+     * angle !< PI - EPSILON && angle !> PI + EPSILON
+     */
+    @Test
+    void condition9NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0,0,0,0,1};
+        Decide.Y2 = new double[]{1,0,0,0,0};
+        Decide.PARAMETERS2.EPSILON = Decide.PI*0.51;
+        Decide.NUMPOINTS2 = Decide.X2.length;
+        Decide.PARAMETERS2.C_PTS = 1;
+        Decide.PARAMETERS2.D_PTS = 1;
+
+        lic.condition9();
+
+        assertFalse(Decide.CMV2[9], "Condition 9 should not be satisfied");
+    }
+
     /**
      * Tests LIC 11 with 3 x-coordinates in which X[i]-X[j] < 0
      * LIC 11 should be satisfied.

@@ -16,12 +16,12 @@ class HelperFunctionsTest {
     double[] point2 = {0,0};
     double[] point3 = {1,0};
 
-    //Obtuse points, 135 degrees
+    //Obtuse points, 135 degrees or 0.75*PI radians
     double[] point4 = {-1,1};
     double[] point5 = {0,0};
     double[] point6 = {1,0};
 
-    //Accute points, 45 degrees
+    //Accute points, 45 degrees or 0.25*PI radians
     double[] point7 = {1,1};
     double[] point8 = {0,0};
     double[] point9 = {1,0};
@@ -52,7 +52,7 @@ class HelperFunctionsTest {
         double[] point3 = {1,0};
 
 
-        assertTrue((135-epsilon<H.getAngle(point1,point2,point3)) && ( H.getAngle(point1,point2,point3) < 135+epsilon));
+        assertTrue((0.75*Decide.PI-epsilon<H.getAngle(point1,point2,point3)) && ( H.getAngle(point1,point2,point3) < 0.75*Decide.PI+epsilon));
 
     }
     @Test
@@ -61,7 +61,7 @@ class HelperFunctionsTest {
         double[] point2 = {0,0};
         double[] point3 = {1,0};
 
-        assertTrue((45-epsilon<H.getAngle(point1,point2,point3)) && ( H.getAngle(point1,point2,point3) < 45+epsilon));
+        assertTrue((0.25*Decide.PI-epsilon<H.getAngle(point1,point2,point3)) && ( H.getAngle(point1,point2,point3) < 0.25*Decide.PI+epsilon));
 
     }
 
@@ -71,13 +71,13 @@ class HelperFunctionsTest {
         double[] point2 = {0,0};
         double[] point3 = {1,0};
 
-        assertFalse((130-epsilon<H.getAngle(point1,point2,point3)) && ( H.getAngle(point1,point2,point3) < 130+epsilon));
+        assertFalse(((130*(Decide.PI/180))-epsilon<H.getAngle(point1,point2,point3)) && ( H.getAngle(point1,point2,point3) < (130*(Decide.PI/180))+epsilon));
 
     }
 
     @Test
     void getAngleTestPointsOnLine() {
-        assertTrue((180-epsilon<H.getAngle(point1,point2,point3)) && ( H.getAngle(point1,point2,point3) < 180+epsilon));
+        assertTrue((Decide.PI-epsilon<H.getAngle(point1,point2,point3)) && ( H.getAngle(point1,point2,point3) < Decide.PI+epsilon));
 
 
     }
