@@ -6,7 +6,30 @@ public class LIC {
 
     HelperFunctions H = new HelperFunctions();
 
+    /**
+     * Checks whether LIC 0 is satisfied. Meaning if it exists at least one set of two consecutive data points in 2D array that are a distance greater than
+     * the length, LENGTH1, apart.
+     * (0 ≤ LENGTH1)
+     */
+    public void condition0() {
 
+        double [] p1 = new double[2];
+        double [] p2 = new double[2];
+
+        for (int i = 0; i < Decide.X2.length - 1; ++i) {
+            p1[0] = Decide.X2[i];
+            p1[1] = Decide.Y2[i];
+
+            p2[0] = Decide.X2[i+1];
+            p2[1] = Decide.Y2[i+1];
+            if(HelperFunctions.euclideanDistance(p1,p2) > Decide.PARAMETERS2.LENGTH1){
+                Decide.CMV2[0] = true;
+                return;
+            }
+        }
+        Decide.CMV2[0] = false;
+
+    }
 
 
     /**
@@ -34,32 +57,6 @@ public class LIC {
         }
         Decide.CMV2[1] = false;
         return;
-    }
-
-
-    /**
-     * Checks whether LIC 0 is satisfied. Meaning if it exists at least one set of two consecutive data points in 2D array that are a distance greater than
-     * the length, LENGTH1, apart.
-     * (0 ≤ LENGTH1)
-     */
-    public void condition0() {
-
-        double [] p1 = new double[2];
-        double [] p2 = new double[2];
-
-        for (int i = 0; i < Decide.X2.length - 1; ++i) {
-            p1[0] = Decide.X2[i];
-            p1[1] = Decide.Y2[i];
-
-            p2[0] = Decide.X2[i+1];
-            p2[1] = Decide.Y2[i+1];
-            if(HelperFunctions.euclideanDistance(p1,p2) > Decide.PARAMETERS2.LENGTH1){
-                Decide.CMV2[0] = true;
-                return;
-            }
-        }
-        Decide.CMV2[0] = false;
-
     }
 
     /**
@@ -185,6 +182,43 @@ public class LIC {
     }
 
     /**
+     * Checks whether LIC 7 is satisfied.
+     * There exists at least one set of two data points separated by
+     * exactly K PTS consecutive intervening points that are a distance
+     * greater than the length, LENGTH1, apart. The condition
+     * is not met when NUMPOINTS < 3.
+     * 1 ≤ K PTS ≤ (NUMPOINTS−2)
+     */
+    public void condition7() {
+        // From given contraints
+        if (Decide.NUMPOINTS2 < 3 || Decide.PARAMETERS2.K_PTS > Decide.NUMPOINTS2) {
+            Decide.CMV2[7] = false;
+            return;
+        }
+
+        double [] p1 = new double[2];
+        double [] p2 = new double[2];
+
+        // Purpose of i condition is to avoid index access out of bounds
+        for (int i = 0; i < Decide.NUMPOINTS2 - Decide.PARAMETERS2.K_PTS - 1; i++) {
+
+            //Generate points p1 and p2
+            p1[0] = Decide.X2[i];
+            p1[1] = Decide.Y2[i];
+
+            p2[0] = Decide.X2[i+Decide.PARAMETERS2.K_PTS + 1];
+            p2[1] = Decide.Y2[i+Decide.PARAMETERS2.K_PTS + 1];
+
+            if(HelperFunctions.euclideanDistance(p1,p2) > Decide.PARAMETERS2.LENGTH1){
+                Decide.CMV2[7] = true;
+                return;
+            }
+
+        }
+        Decide.CMV2[7] = false;
+    }
+
+     /**
      * Checks whether LIC 9 is satisfied
      * Sets <code>Decide.CMV[9]</code> to result
      */
@@ -324,6 +358,53 @@ public class LIC {
     }
 
     /**
+     * Checks whether LIC 12 is satisfied.
+     * Sets <code>Decide.CMV2[12]</code> to true if LIC 12 is satisfied or false if not.
+     */
+    public void condition12() {
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+        int intervening = Decide.PARAMETERS2.K_PTS;
+
+        if (Decide.NUMPOINTS2 < 3) {
+            Decide.CMV2[12] = false;
+            return;
+        }
+
+        int totalInterval = 1 + intervening + 1;
+
+        boolean foundLength1Points = false;
+
+        // Check all pairs of points with K_PTS points in between
+        for (int firstPoint = 0; firstPoint <= Decide.NUMPOINTS2 - totalInterval; firstPoint++) {
+            int secondPoint = firstPoint + intervening + 1;
+            double[] point1 = {xCoords[firstPoint], yCoords[firstPoint]};
+            double[] point2 = {xCoords[secondPoint], yCoords[secondPoint]};
+            if (HelperFunctions.euclideanDistance(point1, point2) > Decide.PARAMETERS2.LENGTH1) {
+                foundLength1Points = true;
+                break;
+            }
+        }
+
+        if (!foundLength1Points) {
+            Decide.CMV2[12] = false;
+            return;
+        }
+
+        // Check all pairs of points with K_PTS points in between
+        for (int firstPoint = 0; firstPoint <= Decide.NUMPOINTS2 - totalInterval; firstPoint++) {
+            int secondPoint = firstPoint + intervening + 1;
+            double[] point1 = {xCoords[firstPoint], yCoords[firstPoint]};
+            double[] point2 = {xCoords[secondPoint], yCoords[secondPoint]};
+            if (HelperFunctions.euclideanDistance(point1, point2) < Decide.PARAMETERS2.LENGTH2) {
+                Decide.CMV2[12] = true;
+                return;
+            }
+        }
+
+        Decide.CMV2[12] = false;
+    }
+    /*
      * Checks whether LIC 14 is satisfied.
      * Sets <code>Decide.CMV2[14]</code> to true if LIC 14 is satisfied or false if not.
      */

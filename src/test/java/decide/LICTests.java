@@ -285,6 +285,51 @@ class LICTests {
     }
 
     /**
+     * Tests if LIC 7 is satisfied with one positive and negative instance.
+     * Checks if there is at least one set of points separated by
+     * X PTS points that are a distance greater than the length, LENGTH1, apart.
+     */
+
+    @Test
+    void condition7Test() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0,0,0,2,0};
+        Decide.Y2 = new double[]{0,0,0,0,0};
+
+        Decide.NUMPOINTS2 = Decide.X2.length;
+
+        Decide.PARAMETERS2.K_PTS = 2;
+        Decide.PARAMETERS2.LENGTH1 = 1;
+
+        lic.condition7();
+        assertTrue(Decide.CMV2[7], "Condition 7 should be satisfied");
+
+        Decide.PARAMETERS2.K_PTS = 3;
+        lic.condition7();
+        assertFalse(Decide.CMV2[7], "Condition 7 should not be satisfied");
+
+    }
+
+    /**
+     * Tests condition7 with invalid input (less than 3 points)
+     */
+    @Test
+    void condition7InvalidInputTest() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0, 0};
+        Decide.Y2 = new double[]{0, 1};
+
+        Decide.NUMPOINTS2 = Decide.X2.length;
+
+        Decide.PARAMETERS2.K_PTS = 2;
+        Decide.PARAMETERS2.LENGTH1 = 1;
+
+        lic.condition7();
+        assertFalse(Decide.CMV2[7], "Condition 7 should not be satisfied");
+    }
+    /**
      * Tests LIC 11 with 3 x-coordinates in which X[i]-X[j] < 0
      * LIC 11 should be satisfied.
      */
@@ -495,6 +540,47 @@ class LICTests {
         lic.condition13();
 
         assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied");
+    }
+
+    /**
+     * Tests LIC 12 with 2 pairs of length 3 and 1.
+     * 3 > 2 and 1 < 2 meaning the checks for LENGTH1 and LENGTH2 are respectively satisfied.
+     */
+    @Test
+    void condition12Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 4;
+        Decide.X2=new double[]{1,1,4,2};
+        Decide.Y2=new double[]{0,0,0,0};
+        Decide.PARAMETERS2.K_PTS = 1;
+        Decide.PARAMETERS2.LENGTH1 = 2;
+        Decide.PARAMETERS2.LENGTH2 = 2;
+
+        lic.condition12();
+
+        assertTrue(Decide.CMV2[12], "Condition 12 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 12 with 2 pairs of length 3 and 1.
+     * 3 > 2 meaning the check for LENGTH1 is satisfied.
+     * (1 == 1 & 3 > 1) meaning the check for LENGTH2 is not satisfied.
+     */
+    @Test
+    void condition12Length2TooSmall() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 4;
+        Decide.X2=new double[]{1,1,4,2};
+        Decide.Y2=new double[]{0,0,0,0};
+        Decide.PARAMETERS2.K_PTS = 1;
+        Decide.PARAMETERS2.LENGTH1 = 2;
+        Decide.PARAMETERS2.LENGTH2 = 1;
+
+        lic.condition12();
+
+        assertFalse(Decide.CMV2[12], "Condition 12 should not be satisfied");
     }
 
     /**
