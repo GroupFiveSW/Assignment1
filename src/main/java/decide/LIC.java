@@ -185,6 +185,38 @@ public class LIC {
     }
 
     /**
+     * Checks whether LIC 8 is satisfied.
+     * Sets <code>Decide.CMV2[8]</code> to result.
+     */
+    public void condition8() {
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+
+        int A_PTS = Decide.PARAMETERS2.A_PTS;
+        int B_PTS = Decide.PARAMETERS2.B_PTS;
+
+        // Starting condition
+        if (Decide.NUMPOINTS2 < 5 ){
+            Decide.CMV2[8] = false;
+            return;
+        }
+
+        // Iterate through sets of three points and check the LIC.
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - (A_PTS + B_PTS + 3); startIndex++) {
+            // List of three points where each point is a list of x,y cords. The points are separated by exactly A_PTS and B_PTS respectively.
+            double[][] points ={{xCoords[startIndex], yCoords[startIndex]},
+                                {xCoords[startIndex + A_PTS + 1 ], yCoords[startIndex + A_PTS + 1]},
+                                {xCoords[startIndex+ A_PTS + B_PTS + 2], yCoords[startIndex + A_PTS + B_PTS + 2]}};
+
+            if(!H.insideCircle(Decide.PARAMETERS2.RADIUS1, points)) {
+                Decide.CMV2[8] = true;
+                return;
+            }
+        }
+        Decide.CMV2[8] = false;
+        return;
+    }
+    /**
      * Checks whether LIC 10 is satisfied.
      * Sets <code>Decide.CMV2[10]</code> to true if LIC 10 is satisfied or false if not.
      */
