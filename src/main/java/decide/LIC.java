@@ -210,7 +210,7 @@ public class LIC {
         }
         Decide.CMV2[11] = false;
     }
-
+    /**
      * Checks whether LIC 8 is satisfied.
      * Sets <code>Decide.CMV2[8]</code> to result.
      */

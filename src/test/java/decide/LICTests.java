@@ -267,13 +267,16 @@ class LICTests {
     void condition11NotSatisfied() {
         LIC lic = new LIC();
 
-        Decide.X2 = new double[] {-5, 0, 0};
+        Decide.X2 = new double[]{-5, 0, 0};
         Decide.PARAMETERS2.G_PTS = 1;
         Decide.NUMPOINTS2 = 3;
 
         lic.condition11();
 
         assertFalse(Decide.CMV2[11], "Condition 11 should not be satisfied");
+    }
+
+    /**
      * Tests LIC 8 with three planar points with a maximum distance of 2 length units.
      * A radius of 2 should thus be able to include all points, not satisfying the condition.
      */
