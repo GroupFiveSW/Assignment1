@@ -135,7 +135,7 @@ class LICTests {
 
         lic.condition3();
 
-        assertTrue(Decide.CMV2[3]);
+        assertTrue(Decide.CMV2[3], "Condition 3 should be satisfied.");
     }
 
     /**
@@ -168,7 +168,7 @@ class LICTests {
 
         lic.condition3();
 
-        assertFalse(Decide.CMV2[3]);
+        assertFalse(Decide.CMV2[3], "Condition 3 should not be satisfied.");
     }
 
     /**
@@ -279,9 +279,49 @@ class LICTests {
 
         Decide.PARAMETERS2.A_PTS = 1;
         Decide.PARAMETERS2.B_PTS = 1;
-
+        Decide.PARAMETERS2.RADIUS1 = 1.5;
+      
         lic.condition8();
 
         assertTrue(Decide.CMV2[8], "Condition 8 should be satisfied");
+    }
+    /**
+     * Tests LIC 10 with a triangle of size 9.5.
+     * 9.5 > 9 for point indices 0, 2, and 4 meaning it is satisfied.
+     */
+    @Test
+    void condition10Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+        Decide.X2 = new double[]{1,0,6,0,2};
+        Decide.Y2 = new double[]{3,0,4,0,7};
+        Decide.PARAMETERS2.E_PTS = 1;
+        Decide.PARAMETERS2.F_PTS = 1;
+        Decide.PARAMETERS2.AREA1 = 9;
+
+        lic.condition10();
+
+        assertTrue(Decide.CMV2[10], "Condition 10 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 10 with a triangle of size 1.
+     * 1 < 10 for point indices 0, 2, and 4 meaning it is not satisfied.
+     */
+    @Test
+    void condition10TooSmallTriangle() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+        Decide.X2 = new double[]{3,0,2,0,3};
+        Decide.Y2 = new double[]{3,0,2,0,1};
+        Decide.PARAMETERS2.E_PTS = 1;
+        Decide.PARAMETERS2.F_PTS = 1;
+        Decide.PARAMETERS2.AREA1 = 10;
+
+        lic.condition10();
+
+        assertFalse(Decide.CMV2[10], "Condition 10 should not be satisfied");
     }
 }

@@ -216,4 +216,34 @@ public class LIC {
         Decide.CMV2[8] = false;
         return;
     }
+    /**
+     * Checks whether LIC 10 is satisfied.
+     * Sets <code>Decide.CMV2[10]</code> to true if LIC 10 is satisfied or false if not.
+     */
+    public void condition10() {
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+        int firstIntervening = Decide.PARAMETERS2.E_PTS;
+        int secondIntervening = Decide.PARAMETERS2.F_PTS;
+
+        if (Decide.NUMPOINTS2 < 5) {
+            Decide.CMV2[10] = false;
+            return;
+        }
+
+        int totalInterval = 1 + firstIntervening + 1 + secondIntervening + 1;
+
+        for (int firstPoint = 0; firstPoint <= Decide.NUMPOINTS2 - totalInterval; firstPoint++) {
+            int secondPoint = firstPoint + firstIntervening + 1;
+            int thirdPoint = secondPoint + secondIntervening + 1;
+            double[][] points ={{xCoords[firstPoint], yCoords[firstPoint]},
+                    {xCoords[secondPoint], yCoords[secondPoint]},
+                    {xCoords[thirdPoint], yCoords[thirdPoint]}};
+            if (H.calcTriangleArea(points[0], points[1], points[2]) > Decide.PARAMETERS2.AREA1) {
+                Decide.CMV2[10] = true;
+                return;
+            }
+        }
+        Decide.CMV2[10] = false;
+    }
 }
