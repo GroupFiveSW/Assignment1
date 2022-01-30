@@ -185,6 +185,32 @@ public class LIC {
     }
 
     /**
+     * Checks whether LIC 11 is satisfied
+     * Sets <code>Decide.CMV[11]</code> to result.
+     */
+    public void condition11() {
+        if (Decide.NUMPOINTS2 < 3) {
+            Decide.CMV2[11] =  false;
+            return;
+        }
+        if (Decide.PARAMETERS2.G_PTS < 1 || Decide.PARAMETERS2.G_PTS > Decide.NUMPOINTS2-2) {
+            Decide.CMV2[11] = false;
+            return;
+        }
+
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - (Decide.PARAMETERS2.G_PTS +2); startIndex++) {
+            double X1 = Decide.X2[startIndex];
+            double X2 = Decide.X2[startIndex+Decide.PARAMETERS2.G_PTS +1];
+
+            if ((X2 - X1) < 0) {
+                Decide.CMV2[11] = true;
+                return;
+            }
+
+        }
+        Decide.CMV2[11] = false;
+    }
+    /**
      * Checks whether LIC 8 is satisfied.
      * Sets <code>Decide.CMV2[8]</code> to result.
      */
