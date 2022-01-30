@@ -211,13 +211,17 @@ public class LIC {
         int C_PTS = Decide.PARAMETERS2.C_PTS;
         int D_PTS = Decide.PARAMETERS2.D_PTS;
 
+        double[][] points = new double[3][3];
+
         // Iterate over all sets of three points separated by C_PTS and D_PTS consecutive points.
         for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - (C_PTS + D_PTS + 3); startIndex++) {
-            double[][] points ={
-                    {Decide.X2[startIndex], Decide.Y2[startIndex]},
-                    {Decide.X2[startIndex+ C_PTS +1], Decide.Y2[startIndex+C_PTS +1]},
-                    {Decide.X2[startIndex+C_PTS+D_PTS+2], Decide.Y2[startIndex+C_PTS+D_PTS+2]}
-            };
+            // Change value of points
+            points[0][0] = Decide.X2[startIndex];
+            points[0][1] = Decide.Y2[startIndex];
+            points[1][0] = Decide.X2[startIndex+ C_PTS +1];
+            points[1][1] = Decide.Y2[startIndex+ C_PTS +1];
+            points[2][0] = Decide.X2[startIndex+C_PTS+D_PTS+2];
+            points[2][1] = Decide.Y2[startIndex+C_PTS+D_PTS+2];
 
             // Check if angle criteria holds
             if (H.getAngle(points[0], points[1], points[2]) < (Decide.PI - Decide.PARAMETERS2.EPSILON) || H.getAngle(points[0], points[1], points[2]) > (Decide.PI + Decide.PARAMETERS2.EPSILON)) {
