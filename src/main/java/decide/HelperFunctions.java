@@ -27,9 +27,9 @@ public class HelperFunctions {
             denom = denom + 0.0000000001;
         }
 
+        // Return radians instead of degrees
         double angle = Math.acos(dotProd/(denom));
-        double nDegrees =  angle * 180 / Decide.PI;
-        return nDegrees;
+        return angle;
     }
 
 
@@ -83,7 +83,7 @@ public class HelperFunctions {
             angle = getAngle(p2,middle_point,p3);
         }
 
-        if (angle > 90) {
+        if (angle > Decide.PI/2) {
             return !(biggest_dist > 2 * R);
         }
 
