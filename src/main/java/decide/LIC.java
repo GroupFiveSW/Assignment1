@@ -119,4 +119,51 @@ public class LIC {
         Decide.CMV2[5] = false;
     }
 
+    /**
+     * Checks whether LIC 9 is satisfied
+     * Sets <code>Decide.CMV[9]</code> to result
+     */
+    public void condition9() {
+
+        // Base case for NUMPOINTS
+        if (Decide.NUMPOINTS2 < 5) {
+            Decide.CMV2[9] = false;
+            return;
+        }
+
+        // Base case for C_PTS and D_PTS
+        if (Decide.PARAMETERS2.C_PTS < 1 || Decide.PARAMETERS2.D_PTS < 1) {
+            Decide.CMV2[9] = false;
+            return;
+        }
+
+        // Base case for C_PTS and D_PTS
+        if ((Decide.PARAMETERS2.C_PTS + Decide.PARAMETERS2.D_PTS) > (Decide.NUMPOINTS2 -3)) {
+            Decide.CMV2[9] = false;
+            return;
+        }
+
+        int C_PTS = Decide.PARAMETERS2.C_PTS;
+        int D_PTS = Decide.PARAMETERS2.D_PTS;
+
+        // Iterate over all sets of three points separated by C_PTS and D_PTS consecutive points.
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - (C_PTS + D_PTS + 3); startIndex++) {
+            double[][] points ={
+                    {Decide.X2[startIndex], Decide.Y2[startIndex]},
+                    {Decide.X2[startIndex+ C_PTS +1], Decide.Y2[startIndex+C_PTS +1]},
+                    {Decide.X2[startIndex+C_PTS+D_PTS+2], Decide.Y2[startIndex+C_PTS+D_PTS+2]}
+            };
+
+            // Check if angle criteria holds
+            if (H.getAngle(points[0], points[1], points[2]) < (Decide.PI - Decide.PARAMETERS2.EPSILON) || H.getAngle(points[0], points[1], points[2]) > (Decide.PI + Decide.PARAMETERS2.EPSILON)) {
+                // Make sure first and last point don't coincide with vertex
+                if (!Arrays.equals(points[0],points[1]) && !Arrays.equals(points[1],points[2])) {
+                    Decide.CMV2[9] = true;
+                    return;
+                }
+            }
+        }
+        Decide.CMV2[9] = false;
+    }
+
 }
