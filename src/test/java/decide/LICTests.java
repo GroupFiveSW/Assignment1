@@ -254,7 +254,7 @@ class LICTests {
         Decide.X2 = new double[]{0,0,0,0,1};
         Decide.Y2 = new double[]{1,0,0,0,0};
         Decide.PARAMETERS2.EPSILON = Decide.PI*0.4;
-        Decide.NUMPOINTS2 = 5;
+        Decide.NUMPOINTS2 = Decide.X2.length;
         Decide.PARAMETERS2.C_PTS = 1;
         Decide.PARAMETERS2.D_PTS = 1;
 
@@ -274,7 +274,7 @@ class LICTests {
         Decide.X2 = new double[]{0,0,0,0,1};
         Decide.Y2 = new double[]{1,0,0,0,0};
         Decide.PARAMETERS2.EPSILON = Decide.PI*0.51;
-        Decide.NUMPOINTS2 = 5;
+        Decide.NUMPOINTS2 = Decide.X2.length;
         Decide.PARAMETERS2.C_PTS = 1;
         Decide.PARAMETERS2.D_PTS = 1;
 
