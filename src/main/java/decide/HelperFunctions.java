@@ -7,9 +7,14 @@ import java.util.*;
 
 public class HelperFunctions {
 
+    /**
+     *
+     * @param p1,p2,p3: three points in the plane
+     * @return double : Returns angle formed at vertex at point p2.
+     */
     double getAngle(double[] p1, double[] p2, double[] p3){
-        double[] vec1 = { p2[0]-p1[0],p2[1]-p1[1]};
-        double[] vec2 = { p2[0]-p3[0],p2[1]-p3[1]};
+        double[] vec1 = { p1[0]-p2[0],p1[1]-p2[1]};
+        double[] vec2 = { p3[0]-p2[0],p3[1]-p2[1]};
 
         double[] zeroVec = {0,0};
 
@@ -17,14 +22,18 @@ public class HelperFunctions {
         double l1 = euclideanDistance(vec1,zeroVec);
         double l2 = euclideanDistance(vec2,zeroVec);
 
+        double denom = l1*l2;
+        if(Math.abs(dotProd)>denom){
+            denom = denom + 0.0000000001;
+        }
 
-        double angle = Math.acos(dotProd/l1*l2);
+        double angle = Math.acos(dotProd/(denom));
         double nDegrees =  angle * 180 / Decide.PI;
         return nDegrees;
     }
 
 
-    double euclideanDistance(double[] p1,double[] p2){
+    static double euclideanDistance(double[] p1,double[] p2){
 
         return Math.sqrt(   Math.pow((p1[0]-p2[0]),2)     +   Math.pow((p1[1]-p2[1]),2)    );
     }
@@ -56,20 +65,23 @@ public class HelperFunctions {
         double b =  euclideanDistance(p1,p3);
         double c =  euclideanDistance(p2,p3);
 
+        double angle;
+
         double[] middle_point;
 
         double biggest_dist = Math.max(a,Math.max(b,c));
         if (a == biggest_dist) {
             middle_point = p3;
+            angle = getAngle(p1,middle_point,p2);
         }
         else if (b == biggest_dist) {
             middle_point = p2;
+            angle = getAngle(p1,middle_point,p3);
         }
         else {
             middle_point = p1;
+            angle = getAngle(p2,middle_point,p3);
         }
-
-        double angle = getAngle(p1,middle_point,p3);
 
         if (angle > 90) {
             return !(biggest_dist > 2 * R);

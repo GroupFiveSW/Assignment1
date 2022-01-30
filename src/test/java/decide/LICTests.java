@@ -1,15 +1,91 @@
 package decide;
 
+
 import org.junit.jupiter.api.AfterEach;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LICTests {
 
-    /**
+    HelperFunctions helper = new HelperFunctions();
 
+    Random rand = new Random();
+
+
+
+    /**
+     *Tests LIC 1 with a sequence of NUMPOINTS planar points with a radius unable to collect
+     * any subsequence of three points in any circle of that radius.
+     */
+    @Test
+    void condition1Satisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = rand.nextInt(60) + 40;
+        Decide.X2 = new double[100];
+        Decide.Y2 = new double[100];
+
+        for(int i=0; i<100; i++){
+            Decide.X2[i] = 3*i-50;
+            Decide.Y2[i] = 3*i-50;
+        }
+
+        Decide.PARAMETERS2.RADIUS1 = 4;
+        lic.condition1();
+
+        assertTrue(Decide.CMV2[1]);
+    }
+
+    /**
+     *Tests LIC 1 with a sequence of NUMPOINTS planar points with a radius able to collect
+     * a subsequence of three points in a circle of that radius.
+     */
+    @Test
+    void condition1NotSatisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = rand.nextInt(60) + 40;
+        Decide.X2 = new double[100];
+        Decide.Y2 = new double[100];
+
+        for(int i=0; i<100; i++){
+            Decide.X2[i] = i;
+            Decide.Y2[i] = i;
+        }
+
+        Decide.PARAMETERS2.RADIUS1 = 2;
+        lic.condition1();
+
+        assertFalse(Decide.CMV2[1]);
+    }
+
+    /**
+     * Test LIC 0 with 3 points thats at least 1 length unit apart.
+     * Tests if at least one set of two consecutive data points in are a distance greater than LENGTH1 apart.
+     */
+    @Test
+    void condition0Test() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{-1,0,1};
+        Decide.Y2 = new double[]{0,0,0};
+
+        Decide.PARAMETERS2.LENGTH1 = 0.5;
+        lic.condition0();
+        assertEquals(true, Decide.CMV2[0], "Condition 0 should be satisfied");
+
+        Decide.PARAMETERS2.LENGTH1 = 2;
+        lic.condition0();
+        assertEquals(false, Decide.CMV2[0], "Condition 0 should not be satisfied");
+
+
+    }
+
+    /**
      * Test LIC 2 with 3 points that form an angle of 90 degrees.
      * As such LIC 2 should be satisfied since 90 degrees is > PI+EPSILON
      */
@@ -101,6 +177,7 @@ class LICTests {
      */
     @Test
     void condition4Satisfied() {
+
         LIC lic = new LIC();
 
         Decide.PARAMETERS2.Q_PTS = 2;

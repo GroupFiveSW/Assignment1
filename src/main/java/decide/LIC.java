@@ -3,7 +3,64 @@ package decide;
 import java.util.Arrays;
 
 public class LIC {
+
     HelperFunctions H = new HelperFunctions();
+
+
+
+
+    /**
+     * Evaluates whether LIC1 is satisfied.
+     *Sets <Code>Decide.CMV[1]</Code> to true if satisified, else to false.
+     */
+
+    public void condition1(){
+
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+
+        for(int i = 0; i<=Decide.NUMPOINTS2-3;i++){
+            double[] point1 = {xCoords[i], yCoords[i]};
+            double[] point2 = {xCoords[i+1],yCoords[i+1]};
+
+            double[] point3 = {xCoords[i+2], yCoords[i+2]};
+
+            double[][] triplet = {point1,point2,point3};
+
+            if(!H.insideCircle(Decide.PARAMETERS2.RADIUS1, triplet)) {
+                Decide.CMV2[1] = true;
+                return;
+            }
+        }
+        Decide.CMV2[1] = false;
+        return;
+    }
+
+
+    /**
+     * Checks whether LIC 0 is satisfied. Meaning if it exists at least one set of two consecutive data points in 2D array that are a distance greater than
+     * the length, LENGTH1, apart.
+     * (0 ≤ LENGTH1)
+     */
+    public void condition0() {
+
+        double [] p1 = new double[2];
+        double [] p2 = new double[2];
+
+        for (int i = 0; i < Decide.X2.length - 1; ++i) {
+            p1[0] = Decide.X2[i];
+            p1[1] = Decide.Y2[i];
+
+            p2[0] = Decide.X2[i+1];
+            p2[1] = Decide.Y2[i+1];
+            if(HelperFunctions.euclideanDistance(p1,p2) > Decide.PARAMETERS2.LENGTH1){
+                Decide.CMV2[0] = true;
+                return;
+            }
+        }
+        Decide.CMV2[0] = false;
+
+    }
 
     /**
      * Checks whether LIC2 is satisfied
@@ -39,7 +96,8 @@ public class LIC {
      * Sets <code>Decide.CMV[3]</code> to result
      */
     public void condition3() {
-        HelperFunctions helper = new HelperFunctions();
+
+
         double[] xCoords = Decide.X2;
         double[] yCoords = Decide.Y2;
 
@@ -48,13 +106,19 @@ public class LIC {
             double[][] points ={{xCoords[startIndex], yCoords[startIndex]},
                                 {xCoords[startIndex+1], yCoords[startIndex+1]},
                                 {xCoords[startIndex+2], yCoords[startIndex+2]}};
-            if (helper.calcTriangleArea(points[0], points[1], points[2]) > Decide.PARAMETERS2.AREA1) {
+            if (H.calcTriangleArea(points[0], points[1], points[2]) > Decide.PARAMETERS2.AREA1) {
                 Decide.CMV2[3] = true;
                 return;
             }
         }
         Decide.CMV2[3] = false;
     }
+
+    Decide D = new Decide();
+
+
+
+
 
     /**
      * Checks whether LIC 4 is satisfied.
@@ -99,6 +163,7 @@ public class LIC {
 
         Decide.CMV2[4] = false;
     }
+
 
     /**
      * Checks whether LIC 5 is satisfied.
