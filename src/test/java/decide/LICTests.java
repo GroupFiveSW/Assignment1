@@ -477,8 +477,8 @@ class LICTests {
         LIC lic = new LIC();
 
         Decide.NUMPOINTS2 = 5;
-        Decide.X2 = new double[]{3,0,2,0,3};
-        Decide.Y2 = new double[]{3,0,2,0,1};
+        Decide.X2 = new double[]{3, 0, 2, 0, 3};
+        Decide.Y2 = new double[]{3, 0, 2, 0, 1};
         Decide.PARAMETERS2.E_PTS = 1;
         Decide.PARAMETERS2.F_PTS = 1;
         Decide.PARAMETERS2.AREA1 = 2;
@@ -487,5 +487,101 @@ class LICTests {
         lic.condition14();
 
         assertFalse(Decide.CMV2[14], "Condition 14 should not be satisfied, AREA1 is larger than the triangle and AREA2 is bigger than the triangle.");
+    }
+
+    /**
+     * Tests LIC 13 with three planar points with a maximum distance of 2 length units, indexes 0, 2, 4.
+     * Radius1 is set to 0.25 and Radius2 to 0.5 so both should be satisfied.
+     * Therefore LIC 13 should be satisfied.
+     */
+    @Test
+    void condition13Satisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+
+        Decide.X2 = new double[] {1, 2, 2, 3, 3};
+        Decide.Y2 = new double[] {1, 2, 2, 3, 3};
+
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 0.25;
+        Decide.PARAMETERS2.RADIUS2 = 0.5;
+
+        lic.condition13();
+
+        assertTrue(Decide.CMV2[13], "Condition 13 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 13 with three planar points with a distance of 4 length units, indexes 0, 2, 4.
+     * Radius1 is set to 1.5 and Radius2 to 3, therefore radius1 satisfies the condition but radius2 does not.
+     * Thus LIC 13 should not be satisfied.
+     */
+    @Test
+    void condition13Radius2NotSatisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+
+        Decide.X2 = new double[] {1, 2, 3, 3, 5};
+        Decide.Y2 = new double[] {1, 2, 3, 3, 5};
+
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 1.5;
+        Decide.PARAMETERS2.RADIUS2 = 3;
+
+        lic.condition13();
+
+        assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied");
+    }
+
+    /**
+     * Tests LIC 13 with three planar points with a distance of 4 length units, indexes 0, 2, 4.
+     * Radius1 is set to 3 and Radius2 to 1.5, therefore radius2 satisfies the condition but radius1 does not.
+     * Thus LIC 13 should not be satisfied.
+     */
+    @Test
+    void condition13Radius1NotSatisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+
+        Decide.X2 = new double[] {1, 2, 3, 3, 5};
+        Decide.Y2 = new double[] {1, 2, 3, 3, 5};
+
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 1.5;
+        Decide.PARAMETERS2.RADIUS2 = 3;
+
+        lic.condition13();
+
+        assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied");
+    }
+
+    /**
+     * Tests LIC 13 with three planar points with a distance of 2 length units, indexes 0, 2, 4.
+     * Radius1 is set to 3 and Radius2 to 3, therefore neither satisfy LIC 13.
+     * Thus LIC 13 should not be satisfied.
+     */
+    @Test
+    void condition13NotSatisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+
+        Decide.X2 = new double[] {1, 2, 2, 3, 3};
+        Decide.Y2 = new double[] {1, 2, 2, 3, 3};
+
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 3;
+        Decide.PARAMETERS2.RADIUS2 = 3;
+
+        lic.condition13();
+
+        assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied");
     }
 }
