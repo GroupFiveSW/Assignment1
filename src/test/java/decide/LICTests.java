@@ -241,4 +241,38 @@ class LICTests {
 
         assertFalse(Decide.CMV2[5], "Condition 5 should not be satisfied");
     }
+
+    /**
+     * Tests LIC 11 with 3 x-coordinates in which X[i]-X[j] < 0
+     * LIC 11 should be satisfied.
+     */
+    @Test
+    void condition11Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{5,0,0};
+        Decide.PARAMETERS2.G_PTS = 1;
+        Decide.NUMPOINTS2 = 3;
+
+        lic.condition11();
+
+        assertTrue(Decide.CMV2[11], "Condition 11 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 11 with 3 x-coordinates in which X[i]-X[j] > 0
+     * LIC 11 should not be satisfied
+     */
+    @Test
+    void condition11NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[] {-5, 0, 0};
+        Decide.PARAMETERS2.G_PTS = 1;
+        Decide.NUMPOINTS2 = 3;
+
+        lic.condition11();
+
+        assertFalse(Decide.CMV2[11], "Condition 11 should not be satisfied");
+    }
 }
