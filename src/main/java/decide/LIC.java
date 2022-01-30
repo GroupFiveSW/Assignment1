@@ -211,15 +211,7 @@ public class LIC {
 
             double[] line = { (fP[0] - lP[0])  , (fP[1] - fP[1])};
 
-            System.out.print("\ni: " + i);
-
-
-
-
-
             for(int j = i+1; j<Decide.PARAMETERS2.N_PTS-1; j++) {
-
-                System.out.print("\nj: " + j);
 
                 double[] cP = {xCoords[j], yCoords[j]};
 
@@ -253,14 +245,11 @@ public class LIC {
                     }
                 }
             }
-            System.out.print("\nDistance: " + distance);
             if(distance>Decide.PARAMETERS2.DIST){
-                System.out.print("hit here");
                 Decide.CMV2[6] = true;
                 return;
             }
         }
-        System.out.print("\nDistance: " + distance);
         Decide.CMV2[6] = false;
         return;
 
