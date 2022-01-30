@@ -135,7 +135,7 @@ class LICTests {
 
         lic.condition3();
 
-        assertTrue(Decide.CMV2[3]);
+        assertTrue(Decide.CMV2[3], "Condition 3 should be satisfied.");
     }
 
     /**
@@ -168,7 +168,7 @@ class LICTests {
 
         lic.condition3();
 
-        assertFalse(Decide.CMV2[3]);
+        assertFalse(Decide.CMV2[3], "Condition 3 should not be satisfied.");
     }
 
     /**
