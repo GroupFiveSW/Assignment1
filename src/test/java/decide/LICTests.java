@@ -441,6 +441,8 @@ class LICTests {
 
         assertFalse(Decide.CMV2[12], "Condition 12 should not be satisfied");
     }
+
+    /*
      * Tests LIC 14 with a triangle of size 9.5, indices 0, 2, 4.
      * AREA1 is set to 5 and AREA2 is set to 10.
      * Thus AREA1 is smaller than the triangle and AREA2 is larger, LIC 14 is satisfied.

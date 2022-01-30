@@ -370,7 +370,7 @@ public class LIC {
 
         Decide.CMV2[12] = false;
     }
-  
+    /*
      * Checks whether LIC 14 is satisfied.
      * Sets <code>Decide.CMV2[14]</code> to true if LIC 14 is satisfied or false if not.
      */
