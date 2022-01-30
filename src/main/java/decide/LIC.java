@@ -184,4 +184,89 @@ public class LIC {
         Decide.CMV2[5] = false;
     }
 
+
+    /**
+     * Evaluates LIC6. If satisfied CMV2[6] is set to true, else it is set to false.
+     */
+    public void condition6(){
+
+
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+
+        if(Decide.NUMPOINTS2<3){
+            Decide.CMV2[6] = true;
+        }
+
+        int npts = Decide.PARAMETERS2.N_PTS;
+
+        double distance = 0;
+
+
+
+        for(int i=0; i< Decide.NUMPOINTS2-npts; i++){
+
+            double[] fP = {xCoords[i] , yCoords[i]};
+            double[] lP = {xCoords[i+npts] , yCoords[i+npts]};
+
+            double[] line = { (fP[0] - lP[0])  , (fP[1] - fP[1])};
+
+            System.out.print("\ni: " + i);
+
+
+
+
+
+            for(int j = i+1; j<Decide.PARAMETERS2.N_PTS-1; j++) {
+
+                System.out.print("\nj: " + j);
+
+                double[] cP = {xCoords[j], yCoords[j]};
+
+                if ((line[0] == 0) && (line[1] == 0)) {
+                    distance = H.euclideanDistance(cP, fP);
+                }
+                else{
+                    double d1 = H.euclideanDistance(cP, lP);
+                    double d2 = H.euclideanDistance(cP, fP);
+
+                    if (d2 < d1) {
+                        double[] currentLine = {cP[0] - fP[0], cP[1] - fP[1]};
+                        double angle = H.getAngle(cP, fP, lP);
+                        if (angle > Decide.PI / 2) {
+                            distance = H.euclideanDistance(cP, fP);
+                        } else {
+                            double numerator = Math.abs(((lP[0] - fP[0]) * (fP[1] - cP[1])) - (fP[0] - cP[0]) * (lP[1] - fP[1]));
+                            double denominator = Math.sqrt(Math.pow((lP[0] - fP[0]), 2) + Math.pow((lP[1] - lP[1]), 2));
+                            distance = numerator / denominator;
+                        }
+                    } else {
+                        double[] currentLine = {cP[0] - lP[0], cP[1] - lP[1]};
+                        double angle = H.getAngle(lP, fP, cP);
+                        if (angle > Decide.PI / 2) {
+                            distance = H.euclideanDistance(cP, fP);
+                        } else {
+                            double numerator = Math.abs(((lP[0] - fP[0]) * (fP[1] - cP[1])) - (fP[0] - cP[0]) * (lP[1] - fP[1]));
+                            double denominator = Math.sqrt(Math.pow((lP[0] - fP[0]), 2) + Math.pow((lP[1] - lP[1]), 2));
+                            distance = numerator / denominator;
+                        }
+                    }
+                }
+            }
+            System.out.print("\nDistance: " + distance);
+            if(distance>Decide.PARAMETERS2.DIST){
+                System.out.print("hit here");
+                Decide.CMV2[6] = true;
+                return;
+            }
+        }
+        System.out.print("\nDistance: " + distance);
+        Decide.CMV2[6] = false;
+        return;
+
+    }
+
+
+
+
 }
