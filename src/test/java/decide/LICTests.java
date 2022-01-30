@@ -241,4 +241,51 @@ class LICTests {
 
         assertFalse(Decide.CMV2[5], "Condition 5 should not be satisfied");
     }
+
+    /**
+     * Tests if LIC 7 is satisfied with one positive and negative instance.
+     * Checks if there is at least one set of points separated by
+     * X PTS points that are a distance greater than the length, LENGTH1, apart.
+     */
+
+    @Test
+    void condition7Test() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0,0,0,2,0};
+        Decide.Y2 = new double[]{0,0,0,0,0};
+
+        Decide.NUMPOINTS2 = Decide.X2.length;
+
+        Decide.PARAMETERS2.K_PTS = 2;
+        Decide.PARAMETERS2.LENGTH1 = 1;
+
+        lic.condition7();
+        assertTrue(Decide.CMV2[7], "Condition 7 should be satisfied");
+
+        Decide.PARAMETERS2.K_PTS = 3;
+        lic.condition7();
+        assertFalse(Decide.CMV2[7], "Condition 7 should not be satisfied");
+
+    }
+
+    /**
+     * Tests condition7 with invalid input (less than 3 points)
+     */
+    @Test
+    void condition7InvalidInputTest() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0,0};
+        Decide.Y2 = new double[]{0,1};
+
+        Decide.NUMPOINTS2 = Decide.X2.length;
+
+        Decide.PARAMETERS2.K_PTS = 2;
+        Decide.PARAMETERS2.LENGTH1 = 1;
+
+        lic.condition7();
+        assertFalse(Decide.CMV2[7], "Condition 7 should not be satisfied");
+
+    }
 }
