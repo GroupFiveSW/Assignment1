@@ -295,7 +295,7 @@ public class LIC {
 
         // Iterate through sets of three points and check the LIC.
         for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - (E_PTS + F_PTS + 3); startIndex++) {
-            // List of three points where each point is a list of x,y cords. The points are separated by exactly A_PTS and B_PTS respectively.
+            // List of three points where each point is a list of x,y coords. The points are separated by exactly A_PTS and B_PTS respectively.
             double[][] points ={{xCoords[startIndex], yCoords[startIndex]},
                                 {xCoords[startIndex + E_PTS + 1 ], yCoords[startIndex + E_PTS + 1]},
                                 {xCoords[startIndex+ E_PTS + F_PTS + 2], yCoords[startIndex + E_PTS + F_PTS + 2]}};
@@ -303,7 +303,7 @@ public class LIC {
             if(H.calcTriangleArea(points[0], points[1], points[2]) > Decide.PARAMETERS2.AREA1) {
                 area1 = true;
             }
-            if(H.calcTriangleArea(points[0], points[1], points[2]) > Decide.PARAMETERS2.AREA2) {
+            if(H.calcTriangleArea(points[0], points[1], points[2]) < Decide.PARAMETERS2.AREA2) {
                 area2 = true;
             }
 
