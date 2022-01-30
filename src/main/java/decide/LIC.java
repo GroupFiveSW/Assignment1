@@ -234,5 +234,92 @@ public class LIC {
         }
         Decide.CMV2[9] = false;
     }
+    /**
+     * Checks whether LIC 11 is satisfied
+     * Sets <code>Decide.CMV[11]</code> to result.
+     */
+    public void condition11() {
+        if (Decide.NUMPOINTS2 < 3) {
+            Decide.CMV2[11] =  false;
+            return;
+        }
+        if (Decide.PARAMETERS2.G_PTS < 1 || Decide.PARAMETERS2.G_PTS > Decide.NUMPOINTS2-2) {
+            Decide.CMV2[11] = false;
+            return;
+        }
 
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - (Decide.PARAMETERS2.G_PTS +2); startIndex++) {
+            double X1 = Decide.X2[startIndex];
+            double X2 = Decide.X2[startIndex+Decide.PARAMETERS2.G_PTS +1];
+
+            if ((X2 - X1) < 0) {
+                Decide.CMV2[11] = true;
+                return;
+            }
+
+        }
+        Decide.CMV2[11] = false;
+    }
+    /**
+     * Checks whether LIC 8 is satisfied.
+     * Sets <code>Decide.CMV2[8]</code> to result.
+     */
+    public void condition8() {
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+
+        int A_PTS = Decide.PARAMETERS2.A_PTS;
+        int B_PTS = Decide.PARAMETERS2.B_PTS;
+
+        // Starting condition
+        if (Decide.NUMPOINTS2 < 5 ){
+            Decide.CMV2[8] = false;
+            return;
+        }
+
+        // Iterate through sets of three points and check the LIC.
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - (A_PTS + B_PTS + 3); startIndex++) {
+            // List of three points where each point is a list of x,y cords. The points are separated by exactly A_PTS and B_PTS respectively.
+            double[][] points ={{xCoords[startIndex], yCoords[startIndex]},
+                                {xCoords[startIndex + A_PTS + 1 ], yCoords[startIndex + A_PTS + 1]},
+                                {xCoords[startIndex+ A_PTS + B_PTS + 2], yCoords[startIndex + A_PTS + B_PTS + 2]}};
+
+            if(!H.insideCircle(Decide.PARAMETERS2.RADIUS1, points)) {
+                Decide.CMV2[8] = true;
+                return;
+            }
+        }
+        Decide.CMV2[8] = false;
+        return;
+    }
+    /**
+     * Checks whether LIC 10 is satisfied.
+     * Sets <code>Decide.CMV2[10]</code> to true if LIC 10 is satisfied or false if not.
+     */
+    public void condition10() {
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+        int firstIntervening = Decide.PARAMETERS2.E_PTS;
+        int secondIntervening = Decide.PARAMETERS2.F_PTS;
+
+        if (Decide.NUMPOINTS2 < 5) {
+            Decide.CMV2[10] = false;
+            return;
+        }
+
+        int totalInterval = 1 + firstIntervening + 1 + secondIntervening + 1;
+
+        for (int firstPoint = 0; firstPoint <= Decide.NUMPOINTS2 - totalInterval; firstPoint++) {
+            int secondPoint = firstPoint + firstIntervening + 1;
+            int thirdPoint = secondPoint + secondIntervening + 1;
+            double[][] points ={{xCoords[firstPoint], yCoords[firstPoint]},
+                    {xCoords[secondPoint], yCoords[secondPoint]},
+                    {xCoords[thirdPoint], yCoords[thirdPoint]}};
+            if (H.calcTriangleArea(points[0], points[1], points[2]) > Decide.PARAMETERS2.AREA1) {
+                Decide.CMV2[10] = true;
+                return;
+            }
+        }
+        Decide.CMV2[10] = false;
+    }
 }
