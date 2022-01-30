@@ -182,7 +182,6 @@ public class LIC {
     }
 
     /**
-
      * Checks whether LIC 7 is satisfied.
      * There exists at least one set of two data points separated by
      * exactly K PTS consecutive intervening points that are a distance
@@ -219,6 +218,56 @@ public class LIC {
         Decide.CMV2[7] = false;
     }
 
+     /**
+     * Checks whether LIC 9 is satisfied
+     * Sets <code>Decide.CMV[9]</code> to result
+     */
+    public void condition9() {
+
+        // Base case for NUMPOINTS
+        if (Decide.NUMPOINTS2 < 5) {
+            Decide.CMV2[9] = false;
+            return;
+        }
+
+        // Base case for C_PTS and D_PTS
+        if (Decide.PARAMETERS2.C_PTS < 1 || Decide.PARAMETERS2.D_PTS < 1) {
+            Decide.CMV2[9] = false;
+            return;
+        }
+
+        // Base case for C_PTS and D_PTS
+        if ((Decide.PARAMETERS2.C_PTS + Decide.PARAMETERS2.D_PTS) > (Decide.NUMPOINTS2 -3)) {
+            Decide.CMV2[9] = false;
+            return;
+        }
+
+        int C_PTS = Decide.PARAMETERS2.C_PTS;
+        int D_PTS = Decide.PARAMETERS2.D_PTS;
+
+        double[][] points = new double[3][3];
+
+        // Iterate over all sets of three points separated by C_PTS and D_PTS consecutive points.
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - (C_PTS + D_PTS + 3); startIndex++) {
+            // Change value of points
+            points[0][0] = Decide.X2[startIndex];
+            points[0][1] = Decide.Y2[startIndex];
+            points[1][0] = Decide.X2[startIndex+ C_PTS +1];
+            points[1][1] = Decide.Y2[startIndex+ C_PTS +1];
+            points[2][0] = Decide.X2[startIndex+C_PTS+D_PTS+2];
+            points[2][1] = Decide.Y2[startIndex+C_PTS+D_PTS+2];
+
+            // Check if angle criteria holds
+            if (H.getAngle(points[0], points[1], points[2]) < (Decide.PI - Decide.PARAMETERS2.EPSILON) || H.getAngle(points[0], points[1], points[2]) > (Decide.PI + Decide.PARAMETERS2.EPSILON)) {
+                // Make sure first and last point don't coincide with vertex
+                if (!Arrays.equals(points[0],points[1]) && !Arrays.equals(points[1],points[2])) {
+                    Decide.CMV2[9] = true;
+                    return;
+                }
+            }
+        }
+        Decide.CMV2[9] = false;
+    }
     /**
      * Checks whether LIC 11 is satisfied
      * Sets <code>Decide.CMV[11]</code> to result.
@@ -306,5 +355,95 @@ public class LIC {
             }
         }
         Decide.CMV2[10] = false;
+    }
+
+    /**
+     * Checks whether LIC 12 is satisfied.
+     * Sets <code>Decide.CMV2[12]</code> to true if LIC 12 is satisfied or false if not.
+     */
+    public void condition12() {
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+        int intervening = Decide.PARAMETERS2.K_PTS;
+
+        if (Decide.NUMPOINTS2 < 3) {
+            Decide.CMV2[12] = false;
+            return;
+        }
+
+        int totalInterval = 1 + intervening + 1;
+
+        boolean foundLength1Points = false;
+
+        // Check all pairs of points with K_PTS points in between
+        for (int firstPoint = 0; firstPoint <= Decide.NUMPOINTS2 - totalInterval; firstPoint++) {
+            int secondPoint = firstPoint + intervening + 1;
+            double[] point1 = {xCoords[firstPoint], yCoords[firstPoint]};
+            double[] point2 = {xCoords[secondPoint], yCoords[secondPoint]};
+            if (HelperFunctions.euclideanDistance(point1, point2) > Decide.PARAMETERS2.LENGTH1) {
+                foundLength1Points = true;
+                break;
+            }
+        }
+
+        if (!foundLength1Points) {
+            Decide.CMV2[12] = false;
+            return;
+        }
+
+        // Check all pairs of points with K_PTS points in between
+        for (int firstPoint = 0; firstPoint <= Decide.NUMPOINTS2 - totalInterval; firstPoint++) {
+            int secondPoint = firstPoint + intervening + 1;
+            double[] point1 = {xCoords[firstPoint], yCoords[firstPoint]};
+            double[] point2 = {xCoords[secondPoint], yCoords[secondPoint]};
+            if (HelperFunctions.euclideanDistance(point1, point2) < Decide.PARAMETERS2.LENGTH2) {
+                Decide.CMV2[12] = true;
+                return;
+            }
+        }
+
+        Decide.CMV2[12] = false;
+    }
+    /*
+     * Checks whether LIC 14 is satisfied.
+     * Sets <code>Decide.CMV2[14]</code> to true if LIC 14 is satisfied or false if not.
+     */
+    public void condition14() {
+        boolean area1 = false;
+        boolean area2 = false;
+
+        double[] xCoords = Decide.X2;
+        double[] yCoords = Decide.Y2;
+
+        int E_PTS = Decide.PARAMETERS2.E_PTS;
+        int F_PTS = Decide.PARAMETERS2.F_PTS;
+
+        // Starting condition
+        if (Decide.NUMPOINTS2 < 5 ){
+            Decide.CMV2[14] = false;
+            return;
+        }
+
+        // Iterate through sets of three points and check the LIC.
+        for (int startIndex = 0; startIndex <= Decide.NUMPOINTS2 - (E_PTS + F_PTS + 3); startIndex++) {
+            // List of three points where each point is a list of x,y coords. The points are separated by exactly A_PTS and B_PTS respectively.
+            double[][] points ={{xCoords[startIndex], yCoords[startIndex]},
+                                {xCoords[startIndex + E_PTS + 1 ], yCoords[startIndex + E_PTS + 1]},
+                                {xCoords[startIndex+ E_PTS + F_PTS + 2], yCoords[startIndex + E_PTS + F_PTS + 2]}};
+
+            if(H.calcTriangleArea(points[0], points[1], points[2]) > Decide.PARAMETERS2.AREA1) {
+                area1 = true;
+            }
+            if(H.calcTriangleArea(points[0], points[1], points[2]) < Decide.PARAMETERS2.AREA2) {
+                area2 = true;
+            }
+
+            if(area1 && area2){
+                Decide.CMV2[14] = true;
+                return;
+            }
+
+        }
+        Decide.CMV2[14] = false;
     }
 }
