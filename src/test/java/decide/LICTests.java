@@ -491,7 +491,7 @@ class LICTests {
 
     /**
      * Tests LIC 13 with three planar points with a maximum distance of 2 length units, indexes 0, 2, 4.
-     * Radius1 is set to 0.25 and Radius2 to 0.5 so both should be satisfied.
+     * Radius1 is set to 0.25 and Radius2 to 1.5 so both should be satisfied.
      * Therefore LIC 13 should be satisfied.
      */
     @Test
@@ -506,7 +506,7 @@ class LICTests {
         Decide.PARAMETERS2.A_PTS = 1;
         Decide.PARAMETERS2.B_PTS = 1;
         Decide.PARAMETERS2.RADIUS1 = 0.25;
-        Decide.PARAMETERS2.RADIUS2 = 0.5;
+        Decide.PARAMETERS2.RADIUS2 = 1.5;
 
         lic.condition13();
 
@@ -515,7 +515,7 @@ class LICTests {
 
     /**
      * Tests LIC 13 with three planar points with a distance of 4 length units, indexes 0, 2, 4.
-     * Radius1 is set to 1.5 and Radius2 to 3, therefore radius1 satisfies the condition but radius2 does not.
+     * Radius1 is set to 1.5 and Radius2 to 1, therefore radius1 satisfies the condition but radius2 does not.
      * Thus LIC 13 should not be satisfied.
      */
     @Test
@@ -530,16 +530,16 @@ class LICTests {
         Decide.PARAMETERS2.A_PTS = 1;
         Decide.PARAMETERS2.B_PTS = 1;
         Decide.PARAMETERS2.RADIUS1 = 1.5;
-        Decide.PARAMETERS2.RADIUS2 = 3;
+        Decide.PARAMETERS2.RADIUS2 = 1;
 
         lic.condition13();
 
-        assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied");
+        assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied, RADIUS2 can't contain the points");
     }
 
     /**
      * Tests LIC 13 with three planar points with a distance of 4 length units, indexes 0, 2, 4.
-     * Radius1 is set to 3 and Radius2 to 1.5, therefore radius2 satisfies the condition but radius1 does not.
+     * Radius1 is set to 3 and Radius2 to 2.5, therefore radius2 satisfies the condition but radius1 does not.
      * Thus LIC 13 should not be satisfied.
      */
     @Test
@@ -553,17 +553,17 @@ class LICTests {
 
         Decide.PARAMETERS2.A_PTS = 1;
         Decide.PARAMETERS2.B_PTS = 1;
-        Decide.PARAMETERS2.RADIUS1 = 1.5;
-        Decide.PARAMETERS2.RADIUS2 = 3;
+        Decide.PARAMETERS2.RADIUS1 = 3;
+        Decide.PARAMETERS2.RADIUS2 = 2.5;
 
         lic.condition13();
 
-        assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied");
+        assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied, RADIUS1 can contain the points.");
     }
 
     /**
      * Tests LIC 13 with three planar points with a distance of 2 length units, indexes 0, 2, 4.
-     * Radius1 is set to 3 and Radius2 to 3, therefore neither satisfy LIC 13.
+     * Radius1 is set to 3 and Radius2 to 0.5, therefore neither satisfy LIC 13.
      * Thus LIC 13 should not be satisfied.
      */
     @Test
@@ -578,7 +578,7 @@ class LICTests {
         Decide.PARAMETERS2.A_PTS = 1;
         Decide.PARAMETERS2.B_PTS = 1;
         Decide.PARAMETERS2.RADIUS1 = 3;
-        Decide.PARAMETERS2.RADIUS2 = 3;
+        Decide.PARAMETERS2.RADIUS2 = 0.5;
 
         lic.condition13();
 
