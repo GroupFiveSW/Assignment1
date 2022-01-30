@@ -135,7 +135,7 @@ class LICTests {
 
         lic.condition3();
 
-        assertTrue(Decide.CMV2[3]);
+        assertTrue(Decide.CMV2[3], "Condition 3 should be satisfied.");
     }
 
     /**
@@ -168,7 +168,7 @@ class LICTests {
 
         lic.condition3();
 
-        assertFalse(Decide.CMV2[3]);
+        assertFalse(Decide.CMV2[3], "Condition 3 should not be satisfied.");
     }
 
     /**
@@ -242,6 +242,83 @@ class LICTests {
         assertFalse(Decide.CMV2[5], "Condition 5 should not be satisfied");
     }
 
+    /**
+     * Tests LIC 11 with 3 x-coordinates in which X[i]-X[j] < 0
+     * LIC 11 should be satisfied.
+     */
+    @Test
+    void condition11Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{5,0,0};
+        Decide.PARAMETERS2.G_PTS = 1;
+        Decide.NUMPOINTS2 = 3;
+
+        lic.condition11();
+
+        assertTrue(Decide.CMV2[11], "Condition 11 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 11 with 3 x-coordinates in which X[i]-X[j] > 0
+     * LIC 11 should not be satisfied
+     */
+    @Test
+    void condition11NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{-5, 0, 0};
+        Decide.PARAMETERS2.G_PTS = 1;
+        Decide.NUMPOINTS2 = 3;
+
+        lic.condition11();
+
+        assertFalse(Decide.CMV2[11], "Condition 11 should not be satisfied");
+    }
+
+    /**
+     * Tests LIC 8 with three planar points with a maximum distance of 2 length units.
+     * A radius of 2 should thus be able to include all points, not satisfying the condition.
+     */
+    @Test
+    void condition8NotSatisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+
+        Decide.X2 = new double[] {1, 2, 2, 3, 3};
+        Decide.Y2 = new double[] {1, 2, 2, 3, 3};
+
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 2;
+
+        lic.condition8();
+
+        assertFalse(Decide.CMV2[8], "Condition 8 should not be satisfied");
+    }
+
+    /**
+     * Tests LIC 8 with three planar points with a distance of 4 length units.
+     * A radius of 1.5 should thus not be able to include all points, satisfying the condition.
+     */
+    @Test
+    void condition8Satisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+
+        Decide.X2 = new double[] {1, 2, 3, 3, 5};
+        Decide.Y2 = new double[] {1, 2, 3, 3, 5};
+
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 1.5;
+      
+        lic.condition8();
+
+        assertTrue(Decide.CMV2[8], "Condition 8 should be satisfied");
+    }
     /**
      * Tests LIC 10 with a triangle of size 9.5.
      * 9.5 > 9 for point indices 0, 2, and 4 meaning it is satisfied.
