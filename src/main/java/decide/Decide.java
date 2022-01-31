@@ -41,12 +41,65 @@ public class Decide {
         double RADIUS2 ; // Maximum radius in LIC 13
         double AREA2; // Maximum area in LIC 14
 
+        // Constructor for parameters
+        public PARAMETERS_T(
+                double LENGTH1,
+        double RADIUS1 ,
+        double EPSILON ,
+        double AREA1,
+        int Q_PTS,
+        int QUADS,
+        double DIST ,
+        int N_PTS,
+        int K_PTS,
+        int A_PTS,
+        int B_PTS,
+        int C_PTS,
+        int D_PTS,
+        int E_PTS,
+        int F_PTS,
+        int G_PTS,
+        double LENGTH2,
+        double RADIUS2 ,
+        double AREA2
+        ) {
+            this.LENGTH1 = LENGTH1;
+            this.RADIUS1  = RADIUS1;
+            this.EPSILON  = EPSILON;
+            this.AREA1 = AREA1;
+            this.Q_PTS = Q_PTS;
+            this.QUADS = QUADS;
+            this.DIST  = DIST;
+            this.N_PTS = N_PTS;
+            this.K_PTS = K_PTS;
+            this.A_PTS = A_PTS;
+            this.B_PTS = B_PTS;
+            this.C_PTS = C_PTS;
+            this.D_PTS = D_PTS;
+            this.E_PTS = E_PTS;
+            this.F_PTS = F_PTS;
+            this.G_PTS = G_PTS;
+            this.LENGTH2 = LENGTH2;
+            this.RADIUS2  = RADIUS2;
+            this.AREA2 = AREA2;
+
+        }
+
     }
 
     ////////////////// Global variable declarations
 
-    PARAMETERS_T PARAMETERS = new PARAMETERS_T();
-    static PARAMETERS_T PARAMETERS2 = new PARAMETERS_T();
+    PARAMETERS_T PARAMETERS = new PARAMETERS_T(
+            1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1,
+            1, 1, 1);
+
+    static PARAMETERS_T PARAMETERS2 = new PARAMETERS_T(
+            1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1,
+            1, 1, 1);
 
     // X coordinates of data points
     double[] X = new double[100];
