@@ -34,7 +34,7 @@ public class LIC {
 
     /**
      * Evaluates whether LIC1 is satisfied.
-     *Sets <Code>Decide.CMV[1]</Code> to true if satisified, else to false.
+     *Sets <Code>Decide.CMV2[1]</Code> to true if satisified, else to false.
      */
 
     public void condition1(){
@@ -61,7 +61,7 @@ public class LIC {
 
     /**
      * Checks whether LIC2 is satisfied
-     * Sets <code>Decide.CMV[2]</code> to true/false depending on whether LIC2 is satisfied or not.
+     * Sets <code>Decide.CMV2[2]</code> to true/false depending on whether LIC2 is satisfied or not.
      */
     public void condition2() {
         boolean conditionSatisfied = false;
@@ -90,7 +90,7 @@ public class LIC {
 
     /**
      * Checks whether LIC 3 is satisfied.
-     * Sets <code>Decide.CMV[3]</code> to result
+     * Sets <code>Decide.CMV2[3]</code> to result
      */
     public void condition3() {
 
@@ -119,7 +119,7 @@ public class LIC {
 
     /**
      * Checks whether LIC 4 is satisfied.
-     * Sets <code>Decide.CMV[4]</code> to result.
+     * Sets <code>Decide.CMV2[4]</code> to result.
      */
     public void condition4() {
         double[] xCoords = Decide.X2;
@@ -164,7 +164,7 @@ public class LIC {
 
     /**
      * Checks whether LIC 5 is satisfied.
-     * Sets <code>Decide.CMV[5]</code> to result.
+     * Sets <code>Decide.CMV2[5]</code> to result.
      */
     public void condition5() {
         double[] xCoords = Decide.X2;
@@ -183,7 +183,7 @@ public class LIC {
 
 
     /**
-     * Evaluates LIC6. If satisfied CMV2[6] is set to true, else it is set to false.
+     * Evaluates LIC6. If satisfied <code>Decide.CMV2[6]</code> is set to true, else it is set to false.
      */
     public void condition6(){
 
@@ -294,7 +294,7 @@ public class LIC {
 
      /**
      * Checks whether LIC 9 is satisfied
-     * Sets <code>Decide.CMV[9]</code> to result
+     * Sets <code>Decide.CMV2[9]</code> to result
      */
     public void condition9() {
 
@@ -344,7 +344,7 @@ public class LIC {
     }
     /**
      * Checks whether LIC 11 is satisfied
-     * Sets <code>Decide.CMV[11]</code> to result.
+     * Sets <code>Decide.CMV2[11]</code> to result.
      */
     public void condition11() {
         if (Decide.NUMPOINTS2 < 3) {
@@ -478,7 +478,7 @@ public class LIC {
 
         Decide.CMV2[12] = false;
     }
-    /*
+    /**
      * Checks whether LIC 14 is satisfied.
      * Sets <code>Decide.CMV2[14]</code> to true if LIC 14 is satisfied or false if not.
      */
