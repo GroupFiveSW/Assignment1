@@ -243,6 +243,46 @@ class LICTests {
     }
 
 
+    /**
+     * * Tests LIC 6 with ten planar data points where there are points lying further than DIST from the line
+     * drawn between the first and last point in a subset of length N_PTS
+     */
+    @Test
+    void condition6Satisfies(){
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{1,21,32,4,9,2,12,17,19,3};
+        Decide.Y2 = new double[]{2,5,-1,-5,-7,6,19,21,5,9};
+
+        Decide.PARAMETERS2.N_PTS = 5;
+        Decide.NUMPOINTS2 = 10;
+        Decide.PARAMETERS2.DIST = 5;
+        lic.condition6();
+
+        assertTrue(Decide.CMV2[6], "Condition 6 should be satisified with given inputs");
+    }
+
+    /**
+     * * Tests LIC 6 with ten planar data points where there are no points lying further than DIST from the line
+     * drawn between the first and last point in a subset of length N_PTS
+     */
+    @Test
+    void condition6NotSatisfied(){
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{1,2,6,4,9,2,1,7,9,3};
+        Decide.Y2 = new double[]{2,5,1,5,7,6,9,2,5,9};
+
+        Decide.PARAMETERS2.N_PTS = 5;
+        Decide.NUMPOINTS2 = 10;
+        Decide.PARAMETERS2.DIST = 15;
+        lic.condition6();
+
+        assertFalse(Decide.CMV2[6], "Condition 6 should not be satisified with given inputs");
+    }
+
+
+
 
     /**
      * Test LIC 9 with angle PI/2 and epsilon less than PI/2.

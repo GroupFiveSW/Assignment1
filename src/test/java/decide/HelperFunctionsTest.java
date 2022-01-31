@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class HelperFunctionsTest {
@@ -128,6 +130,49 @@ class HelperFunctionsTest {
     void insideCircleTestLargeCircleObtuseAngle() {
         double[][] points = {point10,point11,point12};
         assertTrue(H.insideCircle(7.5, points));
+    }
+
+
+    /**
+     * Tests Wether the PUM generates a correct matrix with true inputs from CMV
+     */
+    @Test
+    void PUMgeneratorTestTrueInputsFromCMV(){
+        Decide.CONNECTORS[] conns = {Decide.CONNECTORS.ANDD, Decide.CONNECTORS.ORR, Decide.CONNECTORS.NOTUSED};
+        for(int i = 0; i<15; i++){
+            Decide.CMV2[i] = true;
+            for(int j = i; j<15; j++){
+                Decide.LCM2[i][j] = conns[(i+j)%3];
+            }
+        }
+        H.PUMgenerator();
+        for(int i = 0; i<15; i++){
+            for(int j = i; j<15; j++){
+                assertTrue(Decide.PUM2[i][j]);
+                assertTrue(Decide.PUM2[j][i]);
+            }
+        }
+    }
+
+    /**
+     * Tests Wether the PUM generates a correct matrix with false inputs from CMV
+     */
+    @Test
+    void PUMgeneratorTestFalseInputsFromCMV(){
+        Decide.CONNECTORS[] conns = {Decide.CONNECTORS.ANDD, Decide.CONNECTORS.ORR};
+        for(int i = 0; i<15; i++){
+            Decide.CMV2[i] = false;
+            for(int j = i; j<15; j++){
+                Decide.LCM2[i][j] = conns[(i+j)%2];
+            }
+        }
+        H.PUMgenerator();
+        for(int i = 0; i<15; i++){
+            for(int j = i; j<15; j++){
+                assertFalse(Decide.PUM2[i][j]);
+                assertFalse(Decide.PUM2[j][i]);
+            }
+        }
     }
 
 }

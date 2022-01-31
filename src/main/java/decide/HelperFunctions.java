@@ -1,6 +1,8 @@
 
 package decide;
 
+import com.sun.source.tree.NewArrayTree;
+
 import java.util.*;
 
 
@@ -94,6 +96,46 @@ public class HelperFunctions {
 
         }
     }
+
+
+    /**
+     * Generates a Preliminary Unlocking Matrix, PUM. Given state of CMV and LCM,
+     * elements of PUM are set in accordance with specifications found in 2.2
+     */
+    void PUMgenerator(){
+
+        // Conditionals as per specification in 2.2
+        for(int i =0; i<15; i++){
+            for(int j=i; j<15; j++){
+                if(Decide.LCM2[i][j] == Decide.CONNECTORS.ANDD) {
+                    if(Decide.CMV2[i] && Decide.CMV2[j]){
+                        Decide.PUM2[i][j] = true;
+                        Decide.PUM2[j][i] = true;
+
+                    }
+                    else{
+                        Decide.PUM2[i][j] = false;
+                        Decide.PUM2[j][i] = false;
+                        }
+                    }
+                else if(Decide.LCM2[i][j] == Decide.CONNECTORS.ORR){
+                    if(Decide.CMV2[i] || Decide.CMV2[j]) {
+                        Decide.PUM2[i][j] = true;
+                        Decide.PUM2[j][i] = true;
+                    }
+                    else{
+                        Decide.PUM2[i][j] = false;
+                        Decide.PUM2[j][i] = false;
+                    }
+                }
+                else if(Decide.LCM2[i][j] == Decide.CONNECTORS.NOTUSED){
+                        Decide.PUM2[i][j] = true;
+                        Decide.PUM2[j][i] = true;
+                    }
+                }
+            }
+        }
+
 
     public static void main(String[] args) {
         HelperFunctions c = new HelperFunctions();

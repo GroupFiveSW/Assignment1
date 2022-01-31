@@ -65,8 +65,8 @@ public class Decide {
     static CONNECTORS [][] LCM2 = new CONNECTORS[15][15];
 
     //Preliminery Unlocking Matrix
-    double [][] PUM = new double[15][15];
-    static double [][] PUM2 = new double[15][15];
+    boolean [][] PUM = new boolean[15][15];
+    static boolean [][] PUM2 = new boolean[15][15];
 
     // Conditions Met Vector
     boolean [] CMV = new boolean[15];
@@ -95,7 +95,6 @@ public class Decide {
 
     // @TODO: Main function we must write
     public static void decide() {
-
 
 
     }
