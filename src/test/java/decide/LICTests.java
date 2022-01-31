@@ -135,7 +135,7 @@ class LICTests {
 
         lic.condition3();
 
-        assertTrue(Decide.CMV2[3]);
+        assertTrue(Decide.CMV2[3], "Condition 3 should be satisfied.");
     }
 
     /**
@@ -168,7 +168,7 @@ class LICTests {
 
         lic.condition3();
 
-        assertFalse(Decide.CMV2[3]);
+        assertFalse(Decide.CMV2[3], "Condition 3 should not be satisfied.");
     }
 
     /**
@@ -283,4 +283,335 @@ class LICTests {
 
 
 
+
+    /**
+     * Test LIC 9 with angle PI/2 and epsilon less than PI/2.
+     * angle < PI - EPSILON, thus LIC 9 should be satisfied
+     */
+    @Test
+    void condition9Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0,0,0,0,1};
+        Decide.Y2 = new double[]{1,0,0,0,0};
+        Decide.PARAMETERS2.EPSILON = Decide.PI*0.4;
+        Decide.NUMPOINTS2 = Decide.X2.length;
+        Decide.PARAMETERS2.C_PTS = 1;
+        Decide.PARAMETERS2.D_PTS = 1;
+
+        lic.condition9();
+
+        assertTrue(Decide.CMV2[9], "Condition 9 should be satisfied");
+    }
+
+    /**
+     * Test LIC 9 with angle PI/2 and epsilon greater than PI/2.
+     * angle !< PI - EPSILON && angle !> PI + EPSILON
+     */
+    @Test
+    void condition9NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0,0,0,0,1};
+        Decide.Y2 = new double[]{1,0,0,0,0};
+        Decide.PARAMETERS2.EPSILON = Decide.PI*0.51;
+        Decide.NUMPOINTS2 = Decide.X2.length;
+        Decide.PARAMETERS2.C_PTS = 1;
+        Decide.PARAMETERS2.D_PTS = 1;
+
+        lic.condition9();
+
+        assertFalse(Decide.CMV2[9], "Condition 9 should not be satisfied");
+    }
+
+    /**
+     * Tests if LIC 7 is satisfied with one positive and negative instance.
+     * Checks if there is at least one set of points separated by
+     * X PTS points that are a distance greater than the length, LENGTH1, apart.
+     */
+
+    @Test
+    void condition7Test() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0,0,0,2,0};
+        Decide.Y2 = new double[]{0,0,0,0,0};
+
+        Decide.NUMPOINTS2 = Decide.X2.length;
+
+        Decide.PARAMETERS2.K_PTS = 2;
+        Decide.PARAMETERS2.LENGTH1 = 1;
+
+        lic.condition7();
+        assertTrue(Decide.CMV2[7], "Condition 7 should be satisfied");
+
+        Decide.PARAMETERS2.K_PTS = 3;
+        lic.condition7();
+        assertFalse(Decide.CMV2[7], "Condition 7 should not be satisfied");
+
+    }
+
+    /**
+     * Tests condition7 with invalid input (less than 3 points)
+     */
+    @Test
+    void condition7InvalidInputTest() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{0, 0};
+        Decide.Y2 = new double[]{0, 1};
+
+        Decide.NUMPOINTS2 = Decide.X2.length;
+
+        Decide.PARAMETERS2.K_PTS = 2;
+        Decide.PARAMETERS2.LENGTH1 = 1;
+
+        lic.condition7();
+        assertFalse(Decide.CMV2[7], "Condition 7 should not be satisfied");
+    }
+    /**
+     * Tests LIC 11 with 3 x-coordinates in which X[i]-X[j] < 0
+     * LIC 11 should be satisfied.
+     */
+    @Test
+    void condition11Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{5,0,0};
+        Decide.PARAMETERS2.G_PTS = 1;
+        Decide.NUMPOINTS2 = 3;
+
+        lic.condition11();
+
+        assertTrue(Decide.CMV2[11], "Condition 11 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 11 with 3 x-coordinates in which X[i]-X[j] > 0
+     * LIC 11 should not be satisfied
+     */
+    @Test
+    void condition11NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.X2 = new double[]{-5, 0, 0};
+        Decide.PARAMETERS2.G_PTS = 1;
+        Decide.NUMPOINTS2 = 3;
+
+        lic.condition11();
+
+        assertFalse(Decide.CMV2[11], "Condition 11 should not be satisfied");
+    }
+
+    /**
+     * Tests LIC 8 with three planar points with a maximum distance of 2 length units.
+     * A radius of 2 should thus be able to include all points, not satisfying the condition.
+     */
+    @Test
+    void condition8NotSatisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+
+        Decide.X2 = new double[] {1, 2, 2, 3, 3};
+        Decide.Y2 = new double[] {1, 2, 2, 3, 3};
+
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 2;
+
+        lic.condition8();
+
+        assertFalse(Decide.CMV2[8], "Condition 8 should not be satisfied");
+    }
+
+    /**
+     * Tests LIC 8 with three planar points with a distance of 4 length units.
+     * A radius of 1.5 should thus not be able to include all points, satisfying the condition.
+     */
+    @Test
+    void condition8Satisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+
+        Decide.X2 = new double[] {1, 2, 3, 3, 5};
+        Decide.Y2 = new double[] {1, 2, 3, 3, 5};
+
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 1.5;
+      
+        lic.condition8();
+
+        assertTrue(Decide.CMV2[8], "Condition 8 should be satisfied");
+    }
+    /**
+     * Tests LIC 10 with a triangle of size 9.5.
+     * 9.5 > 9 for point indices 0, 2, and 4 meaning it is satisfied.
+     */
+    @Test
+    void condition10Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+        Decide.X2 = new double[]{1,0,6,0,2};
+        Decide.Y2 = new double[]{3,0,4,0,7};
+        Decide.PARAMETERS2.E_PTS = 1;
+        Decide.PARAMETERS2.F_PTS = 1;
+        Decide.PARAMETERS2.AREA1 = 9;
+
+        lic.condition10();
+
+        assertTrue(Decide.CMV2[10], "Condition 10 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 10 with a triangle of size 1.
+     * 1 < 10 for point indices 0, 2, and 4 meaning it is not satisfied.
+     */
+    @Test
+    void condition10TooSmallTriangle() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+        Decide.X2 = new double[]{3,0,2,0,3};
+        Decide.Y2 = new double[]{3,0,2,0,1};
+        Decide.PARAMETERS2.E_PTS = 1;
+        Decide.PARAMETERS2.F_PTS = 1;
+        Decide.PARAMETERS2.AREA1 = 10;
+
+        lic.condition10();
+
+        assertFalse(Decide.CMV2[10], "Condition 10 should not be satisfied");
+    }
+
+    /**
+     * Tests LIC 12 with 2 pairs of length 3 and 1.
+     * 3 > 2 and 1 < 2 meaning the checks for LENGTH1 and LENGTH2 are respectively satisfied.
+     */
+    @Test
+    void condition12Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 4;
+        Decide.X2=new double[]{1,1,4,2};
+        Decide.Y2=new double[]{0,0,0,0};
+        Decide.PARAMETERS2.K_PTS = 1;
+        Decide.PARAMETERS2.LENGTH1 = 2;
+        Decide.PARAMETERS2.LENGTH2 = 2;
+
+        lic.condition12();
+
+        assertTrue(Decide.CMV2[12], "Condition 12 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 12 with 2 pairs of length 3 and 1.
+     * 3 > 2 meaning the check for LENGTH1 is satisfied.
+     * (1 == 1 & 3 > 1) meaning the check for LENGTH2 is not satisfied.
+     */
+    @Test
+    void condition12Length2TooSmall() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 4;
+        Decide.X2=new double[]{1,1,4,2};
+        Decide.Y2=new double[]{0,0,0,0};
+        Decide.PARAMETERS2.K_PTS = 1;
+        Decide.PARAMETERS2.LENGTH1 = 2;
+        Decide.PARAMETERS2.LENGTH2 = 1;
+
+        lic.condition12();
+
+        assertFalse(Decide.CMV2[12], "Condition 12 should not be satisfied");
+    }
+
+    /*
+     * Tests LIC 14 with a triangle of size 9.5, indices 0, 2, 4.
+     * AREA1 is set to 5 and AREA2 is set to 10.
+     * Thus AREA1 is smaller than the triangle and AREA2 is larger, LIC 14 is satisfied.
+     */
+    @Test
+    void condition14Satisfied() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+        Decide.X2 = new double[]{1,0,6,0,2};
+        Decide.Y2 = new double[]{3,0,4,0,7};
+        Decide.PARAMETERS2.E_PTS = 1;
+        Decide.PARAMETERS2.F_PTS = 1;
+        Decide.PARAMETERS2.AREA1 = 5;
+        Decide.PARAMETERS2.AREA2 = 10;
+
+        lic.condition14();
+
+        assertTrue(Decide.CMV2[14], "Condition 14 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 14 with a triangle of size 1, indices 0, 2, 4.
+     * AREA1 is set to 0.5 and area2 is set to 0.25.
+     * Thus both AREA1 and AREA2 are smaller and LIC14 should not be satisfied.
+     */
+    @Test
+    void condition14Area2NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+        Decide.X2 = new double[]{3,0,2,0,3};
+        Decide.Y2 = new double[]{3,0,2,0,1};
+        Decide.PARAMETERS2.E_PTS = 1;
+        Decide.PARAMETERS2.F_PTS = 1;
+        Decide.PARAMETERS2.AREA1 = 0.5;
+        Decide.PARAMETERS2.AREA2 = 0.25;
+
+        lic.condition14();
+
+        assertFalse(Decide.CMV2[14], "Condition 14 should not be satisfied, AREA2 is smaller than triangle.");
+    }
+
+    /**
+     * Tests LIC 14 with a triangle of size 1, indices 0, 2, 4.
+     * AREA1 is set to 2 and AREA2 is set to 3.
+     * Thus both AREA1 and AREA2 are bigger than the triangle and LIC14 should not be satisfied.
+     */
+    @Test
+    void condition14Area1NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+        Decide.X2 = new double[]{3,0,2,0,3};
+        Decide.Y2 = new double[]{3,0,2,0,1};
+        Decide.PARAMETERS2.E_PTS = 1;
+        Decide.PARAMETERS2.F_PTS = 1;
+        Decide.PARAMETERS2.AREA1 = 2;
+        Decide.PARAMETERS2.AREA2 = 3;
+
+        lic.condition14();
+
+        assertFalse(Decide.CMV2[14], "Condition 14 should not be satisfied, AREA1 is bigger than triangle.");
+    }
+
+    /**
+     * Tests LIC 14 with a triangle of size 1, indices 0, 2, 4.
+     * AREA1 is set to 2 and AREA2 is set to 0.5.
+     * Thus AREA1 is bigger than the triangle while AREA2 is bigger than the triangle and LIC 14 is not satisfied.
+     */
+    @Test
+    void condition14NotSatisfied() {
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+        Decide.X2 = new double[]{3,0,2,0,3};
+        Decide.Y2 = new double[]{3,0,2,0,1};
+        Decide.PARAMETERS2.E_PTS = 1;
+        Decide.PARAMETERS2.F_PTS = 1;
+        Decide.PARAMETERS2.AREA1 = 2;
+        Decide.PARAMETERS2.AREA2 = 0.5;
+
+        lic.condition14();
+
+        assertFalse(Decide.CMV2[14], "Condition 14 should not be satisfied, AREA1 is larger than the triangle and AREA2 is bigger than the triangle.");
+    }
 }
