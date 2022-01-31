@@ -64,6 +64,9 @@ public class Decide {
     CONNECTORS [][] LCM = new CONNECTORS[15][15];
     static CONNECTORS [][] LCM2 = new CONNECTORS[15][15];
 
+    // Preliminary Unlocking Vector
+    static boolean[] PUV = new boolean[15];
+
     //Preliminery Unlocking Matrix
     boolean [][] PUM = new boolean[15][15];
     static boolean [][] PUM2 = new boolean[15][15];
