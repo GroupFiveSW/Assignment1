@@ -1,5 +1,76 @@
-# Assignment1
-Assignment1
+# Assignment 1: Decide Program (DD2480)
+
+In this assignment we were tasked to write a program in accordance with a given specification _Launch Interceptor Program: Requirements
+Specification_. 
+
+## Summary
+
+### Program
+
+The `Decide()` program will generate a boolean signal which determines whether an interceptor should be
+launched based upon input radar tracking information. This is decided on a combination of 15 different _Launch Interceptor Conditions (LIC’s)_. 
+If a LIC is true, it will assign the corresponding position in the _Conditions Met Vector
+(CMV)_ to true. The input _Logical Connector Matrix (LCM)_, defines which individual LIC’s must be considered jointly in some way. 
+The combination of LCM and CMV is stored in the _Preliminary Unlocking
+Matrix (PUM)_, a 15x15 symmetric matrix. 
+
+Another input, the _Preliminary Unlocking Vector (PUV)_ represents which LIC actually matters
+in this particular launch determination. Each element of the UV indicates how to combine the PUM
+values to form the corresponding element of the _Final Unlocking Vector (FUV)_, a 15-element
+vector that decides if the launch-unlock signal should be generated.
+
+### Tooling
+
+- **Programming Language:** Java was used due to all members having experience with it and its support for testing. 
+- **Project Updates:** GitHub built-in _Projects_ tool was used with an active Kanban-board. You can find this board connected to this repo.
+- **Build tools:** Maven.
+- **Testing:** JUnit.
+- **CI:** GitHub Actions. Runs all specified JUnit tests and build before integration.
+
+---
+
+
+## Group Members:
+- Gabriel Acar (Gabriel-Acar)
+- Elias Bonnici (elibon99)
+- Gustaf Halvardsson (gustafvh)
+- Alexander Krantz (Klako)
+- Oscar Spolander (Carnoustie)
+
+## Contributions 
+(# = IssueNumber on Github if applicable)
+
+@TODO for tasks
+
+### Gabriel Acar
+- Task
+
+### Elias Bonnici
+- Task
+
+### Gustaf Halvardsson
+- Convert template code in Java (#4)
+- Implement LIC 0 with unit test (#7)
+- Implement LIC 7 with unit test (#12)
+- Create angle function(#24) **(Pair-programming)**
+- Task
+
+### Alexander Krantz
+- Task
+
+### Oscar Spolander
+- Task
+
+
+
+## How to run the code
+
+@TODO
+
+---
+
+# Specification
+
 
 ### Reusable functionality
 Due to overlapping functionality amongst various LICS's, we identified reusable functions across these LIC's.
