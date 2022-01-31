@@ -503,11 +503,10 @@ class LICTests {
     void condition13Radius1NotSatisfied(){
         LIC lic = new LIC();
 
-        Decide.NUMPOINTS2 = 5;
 
         Decide.X2 = new double[] {1, 2, 3, 3, 5};
         Decide.Y2 = new double[] {1, 2, 3, 3, 5};
-
+Decide.NUMPOINTS2 = Decide.X2.length;
         Decide.PARAMETERS2.A_PTS = 1;
         Decide.PARAMETERS2.B_PTS = 1;
         Decide.PARAMETERS2.RADIUS1 = 3;
@@ -527,11 +526,10 @@ class LICTests {
     void condition13NotSatisfied(){
         LIC lic = new LIC();
 
-        Decide.NUMPOINTS2 = 5;
 
         Decide.X2 = new double[] {1, 2, 2, 3, 3};
         Decide.Y2 = new double[] {1, 2, 2, 3, 3};
-
+Decide.NUMPOINTS2 = Decide.X2.length;
         Decide.PARAMETERS2.A_PTS = 1;
         Decide.PARAMETERS2.B_PTS = 1;
         Decide.PARAMETERS2.RADIUS1 = 3;
@@ -658,9 +656,9 @@ class LICTests {
     void condition14NotSatisfied() {
         LIC lic = new LIC();
 
-        Decide.NUMPOINTS2 = 5;
         Decide.X2 = new double[]{3, 0, 2, 0, 3};
         Decide.Y2 = new double[]{3, 0, 2, 0, 1};
+        Decide.NUMPOINTS2 = Decide.X2.length;
         Decide.PARAMETERS2.E_PTS = 1;
         Decide.PARAMETERS2.F_PTS = 1;
         Decide.PARAMETERS2.AREA1 = 2;
