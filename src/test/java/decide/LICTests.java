@@ -487,6 +487,100 @@ class LICTests {
     }
 
     /**
+     * Tests LIC 13 with three planar points with a maximum distance of 2 length units, indexes 0, 2, 4.
+     * Radius1 is set to 0.25 and Radius2 to 1.5 so both should be satisfied.
+     * Therefore LIC 13 should be satisfied.
+     */
+    @Test
+    void condition13Satisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+
+        Decide.X2 = new double[] {1, 2, 2, 3, 3};
+        Decide.Y2 = new double[] {1, 2, 2, 3, 3};
+
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 0.25;
+        Decide.PARAMETERS2.RADIUS2 = 1.5;
+
+        lic.condition13();
+
+        assertTrue(Decide.CMV2[13], "Condition 13 should be satisfied");
+    }
+
+    /**
+     * Tests LIC 13 with three planar points with a distance of 4 length units, indexes 0, 2, 4.
+     * Radius1 is set to 1.5 and Radius2 to 1, therefore radius1 satisfies the condition but radius2 does not.
+     * Thus LIC 13 should not be satisfied.
+     */
+    @Test
+    void condition13Radius2NotSatisfied(){
+        LIC lic = new LIC();
+
+        Decide.NUMPOINTS2 = 5;
+
+        Decide.X2 = new double[] {1, 2, 3, 3, 5};
+        Decide.Y2 = new double[] {1, 2, 3, 3, 5};
+
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 1.5;
+        Decide.PARAMETERS2.RADIUS2 = 1;
+
+        lic.condition13();
+
+        assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied, RADIUS2 can't contain the points");
+    }
+
+    /**
+     * Tests LIC 13 with three planar points with a distance of 4 length units, indexes 0, 2, 4.
+     * Radius1 is set to 3 and Radius2 to 2.5, therefore radius2 satisfies the condition but radius1 does not.
+     * Thus LIC 13 should not be satisfied.
+     */
+    @Test
+    void condition13Radius1NotSatisfied(){
+        LIC lic = new LIC();
+
+
+        Decide.X2 = new double[] {1, 2, 3, 3, 5};
+        Decide.Y2 = new double[] {1, 2, 3, 3, 5};
+Decide.NUMPOINTS2 = Decide.X2.length;
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 3;
+        Decide.PARAMETERS2.RADIUS2 = 2.5;
+
+        lic.condition13();
+
+        assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied, RADIUS1 can contain the points.");
+    }
+
+    /**
+     * Tests LIC 13 with three planar points with a distance of 2 length units, indexes 0, 2, 4.
+     * Radius1 is set to 3 and Radius2 to 0.5, therefore neither satisfy LIC 13.
+     * Thus LIC 13 should not be satisfied.
+     */
+    @Test
+    void condition13NotSatisfied(){
+        LIC lic = new LIC();
+
+
+        Decide.X2 = new double[] {1, 2, 2, 3, 3};
+        Decide.Y2 = new double[] {1, 2, 2, 3, 3};
+Decide.NUMPOINTS2 = Decide.X2.length;
+        Decide.PARAMETERS2.A_PTS = 1;
+        Decide.PARAMETERS2.B_PTS = 1;
+        Decide.PARAMETERS2.RADIUS1 = 3;
+        Decide.PARAMETERS2.RADIUS2 = 0.5;
+
+        lic.condition13();
+
+        assertFalse(Decide.CMV2[13], "Condition 13 should not be satisfied");
+    }
+
+    /**
      * Tests LIC 12 with 2 pairs of length 3 and 1.
      * 3 > 2 and 1 < 2 meaning the checks for LENGTH1 and LENGTH2 are respectively satisfied.
      */
@@ -527,7 +621,7 @@ class LICTests {
         assertFalse(Decide.CMV2[12], "Condition 12 should not be satisfied");
     }
 
-    /*
+    /**
      * Tests LIC 14 with a triangle of size 9.5, indices 0, 2, 4.
      * AREA1 is set to 5 and AREA2 is set to 10.
      * Thus AREA1 is smaller than the triangle and AREA2 is larger, LIC 14 is satisfied.
@@ -602,9 +696,9 @@ class LICTests {
     void condition14NotSatisfied() {
         LIC lic = new LIC();
 
-        Decide.NUMPOINTS2 = 5;
-        Decide.X2 = new double[]{3,0,2,0,3};
-        Decide.Y2 = new double[]{3,0,2,0,1};
+        Decide.X2 = new double[]{3, 0, 2, 0, 3};
+        Decide.Y2 = new double[]{3, 0, 2, 0, 1};
+        Decide.NUMPOINTS2 = Decide.X2.length;
         Decide.PARAMETERS2.E_PTS = 1;
         Decide.PARAMETERS2.F_PTS = 1;
         Decide.PARAMETERS2.AREA1 = 2;
