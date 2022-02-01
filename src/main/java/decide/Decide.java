@@ -5,7 +5,7 @@ public class Decide {
     //Constant
     static double PI = 3.1415926535;
 
-    ///////Type Declarations
+    //Type Declarations
     enum CONNECTORS {
         NOTUSED,
         ORR,
@@ -88,7 +88,6 @@ public class Decide {
     }
 
     ////////////////// Global variable declarations
-
     PARAMETERS_T PARAMETERS = new PARAMETERS_T(
             1, 1, 1, 1, 1,
             1, 1, 1, 1, 1, 1,
@@ -136,6 +135,8 @@ public class Decide {
     boolean Launch;
     static boolean LAUNCH2;
 
+
+
     //Compares floating point numbers  – see Nonfunctional Requirements
     public static COMPTYPE DOUBLECOMPARE(double A, double B) {
         if (Math.abs(A-B) < 0.000001) {
@@ -149,9 +150,50 @@ public class Decide {
     }
 
 
-    // @TODO: Main function we must write
+    /**
+     * Final decide function.
+     * Creates CMV, PUM, FUV and decides whether to launch or not.
+     */
     public static void decide() {
+        /** Create CMV */
+        LIC lic = new LIC();
+        lic.condition0();
+        lic.condition1();
+        lic.condition2();
+        lic.condition3();
+        lic.condition4();
+        lic.condition5();
+        lic.condition6();
+        lic.condition7();
+        lic.condition8();
+        lic.condition9();
+        lic.condition10();
+        lic.condition11();
+        lic.condition12();
+        lic.condition13();
+        lic.condition14();
 
+        /** Create PUM */
+        HelperFunctions h = new HelperFunctions();
+        h.PUMgenerator();
+
+        /** Create FUV */
+        FUVGenerator fuv = new FUVGenerator();
+        fuv.generate();
+
+        /** Decide final launch/no launch decision depending on values of FUV */
+        LAUNCH2 = true;
+        for (int i = 0; i < FUV2.length; i++){
+            if (!FUV2[i]){
+                LAUNCH2 = false;
+                break;
+            }
+        }
+        if (LAUNCH2) {
+            System.out.println("Launch");
+        } else {
+            System.out.println("No launch");
+        }
 
     }
 

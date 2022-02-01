@@ -111,7 +111,6 @@ public class LIC {
         Decide.CMV2[3] = false;
     }
 
-    Decide D = new Decide();
 
 
 
