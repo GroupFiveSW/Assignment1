@@ -5,7 +5,7 @@ public class Decide {
     //Constant
     static double PI = 3.1415926535;
 
-    ///////Type Declarations
+    //Type Declarations
     enum CONNECTORS {
         NOTUSED,
         ORR,
@@ -41,12 +41,64 @@ public class Decide {
         double RADIUS2 ; // Maximum radius in LIC 13
         double AREA2; // Maximum area in LIC 14
 
+        // Constructor for parameters
+        public PARAMETERS_T(
+                double LENGTH1,
+        double RADIUS1 ,
+        double EPSILON ,
+        double AREA1,
+        int Q_PTS,
+        int QUADS,
+        double DIST ,
+        int N_PTS,
+        int K_PTS,
+        int A_PTS,
+        int B_PTS,
+        int C_PTS,
+        int D_PTS,
+        int E_PTS,
+        int F_PTS,
+        int G_PTS,
+        double LENGTH2,
+        double RADIUS2 ,
+        double AREA2
+        ) {
+            this.LENGTH1 = LENGTH1;
+            this.RADIUS1  = RADIUS1;
+            this.EPSILON  = EPSILON;
+            this.AREA1 = AREA1;
+            this.Q_PTS = Q_PTS;
+            this.QUADS = QUADS;
+            this.DIST  = DIST;
+            this.N_PTS = N_PTS;
+            this.K_PTS = K_PTS;
+            this.A_PTS = A_PTS;
+            this.B_PTS = B_PTS;
+            this.C_PTS = C_PTS;
+            this.D_PTS = D_PTS;
+            this.E_PTS = E_PTS;
+            this.F_PTS = F_PTS;
+            this.G_PTS = G_PTS;
+            this.LENGTH2 = LENGTH2;
+            this.RADIUS2  = RADIUS2;
+            this.AREA2 = AREA2;
+
+        }
+
     }
 
     ////////////////// Global variable declarations
+    PARAMETERS_T PARAMETERS = new PARAMETERS_T(
+            1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1,
+            1, 1, 1);
 
-    PARAMETERS_T PARAMETERS = new PARAMETERS_T();
-    static PARAMETERS_T PARAMETERS2 = new PARAMETERS_T();
+    static PARAMETERS_T PARAMETERS2 = new PARAMETERS_T(
+            1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1,
+            1, 1, 1);
 
     // X coordinates of data points
     double[] X = new double[100];
@@ -83,6 +135,8 @@ public class Decide {
     boolean Launch;
     static boolean LAUNCH2;
 
+
+
     //Compares floating point numbers  – see Nonfunctional Requirements
     public static COMPTYPE DOUBLECOMPARE(double A, double B) {
         if (Math.abs(A-B) < 0.000001) {
@@ -96,9 +150,50 @@ public class Decide {
     }
 
 
-    // @TODO: Main function we must write
+    /**
+     * Final decide function.
+     * Creates CMV, PUM, FUV and decides whether to launch or not.
+     */
     public static void decide() {
+        /** Create CMV */
+        LIC lic = new LIC();
+        lic.condition0();
+        lic.condition1();
+        lic.condition2();
+        lic.condition3();
+        lic.condition4();
+        lic.condition5();
+        lic.condition6();
+        lic.condition7();
+        lic.condition8();
+        lic.condition9();
+        lic.condition10();
+        lic.condition11();
+        lic.condition12();
+        lic.condition13();
+        lic.condition14();
 
+        /** Create PUM */
+        HelperFunctions h = new HelperFunctions();
+        h.PUMgenerator();
+
+        /** Create FUV */
+        FUVGenerator fuv = new FUVGenerator();
+        fuv.generate();
+
+        /** Decide final launch/no launch decision depending on values of FUV */
+        LAUNCH2 = true;
+        for (int i = 0; i < FUV2.length; i++){
+            if (!FUV2[i]){
+                LAUNCH2 = false;
+                break;
+            }
+        }
+        if (LAUNCH2) {
+            System.out.println("Launch");
+        } else {
+            System.out.println("No launch");
+        }
 
     }
 
