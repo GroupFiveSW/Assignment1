@@ -46,7 +46,12 @@ vector that decides if the launch-unlock signal should be generated.
 - Task
 
 ### Elias Bonnici
-- Task
+- Convert template code in Java (#4) (with Gustaf)
+- Setup maven and GitHub Actions (#2)
+- Implement LIC 2 with unit test (#5)
+- Implement LIC 9 with unit test (#17)
+- Implement LIC 11 with unit test (#14)
+- Implement DECIDE function (#21)
 
 ### Gustaf Halvardsson
 - Convert template code in Java (#4)
