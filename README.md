@@ -43,7 +43,12 @@ vector that decides if the launch-unlock signal should be generated.
 @TODO for tasks
 
 ### Gabriel Acar
-- Task
+- Create insideCircle function (#23) **(Pair-programming)**
+- Create triangleArea function (#25) **(Pair-programming)**
+- Implement LIC 3 with unit test (#6)
+- Implement LIC 8 with unit test (#15)
+- Implement LIC 13 with unit test (#11)
+- Implement LIC 14 with unit test (#9)
 
 ### Elias Bonnici
 - Convert template code in Java (#4) (with Gustaf)
