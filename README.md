@@ -65,7 +65,13 @@ vector that decides if the launch-unlock signal should be generated.
 - Create full-scale tests for the entire Decide Program #45 (only very partially due to its overlap with #21)
 
 ### Alexander Krantz
-- Task
+- Implement LIC 4 with unit test (#8)
+- Fix test for LIC 4 (#30)
+- Implement LIC 5 with unit test (#18)
+- Implement LIC 10 with unit test (#16)
+- Implement LIC 12 with unit test (#13)
+- Implement FUV generator with unit tests (#19)
+- All LIC function docblocks should reference the correct CMV variable (#38)
 
 ### Oscar Spolander
 - Implement ContainsCircle function **(Pair-programming)**
