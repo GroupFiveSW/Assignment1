@@ -69,7 +69,11 @@ vector that decides if the launch-unlock signal should be generated.
 - Task
 
 ### Oscar Spolander
-- Task
+- Implement ContainsCircle function **(Pair-programming)**
+- Implement LIC1 with uniit test (#3)
+- Implement LIC6 with unit test (#10)
+- Implement PUM-generator with unit test (#20)
+- Write short report according to Essence (#46)
 
 
 
