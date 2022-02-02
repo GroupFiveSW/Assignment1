@@ -197,8 +197,17 @@ public class Decide {
 
     }
 
-    // Debug function for Hello World
+    // To run, execute $ mvn exec:java
     public static void main(String[] args) {
-        System.out.println("Hello World from Decide!");
+
+
+        PARAMETERS2 = new PARAMETERS_T(
+                1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1, 1,
+                1, 1, 1, 1, 1,
+                1, 1, 1);
+
+        decide();
+
     }
 }
