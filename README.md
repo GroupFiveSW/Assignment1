@@ -40,10 +40,13 @@ vector that decides if the launch-unlock signal should be generated.
 ## Contributions 
 (# = IssueNumber on Github if applicable)
 
-@TODO for tasks
-
 ### Gabriel Acar
-- Task
+- Create insideCircle function (#23) **(Pair-programming)**
+- Create triangleArea function (#25) **(Pair-programming)**
+- Implement LIC 3 with unit test (#6)
+- Implement LIC 8 with unit test (#15)
+- Implement LIC 13 with unit test (#11)
+- Implement LIC 14 with unit test (#9)
 
 ### Elias Bonnici
 - Convert template code in Java (#4) (with Gustaf)
@@ -58,19 +61,32 @@ vector that decides if the launch-unlock signal should be generated.
 - Implement LIC 0 with unit test (#7)
 - Implement LIC 7 with unit test (#12)
 - Create angle function(#24) **(Pair-programming)**
-- Task
+- Implement README according to the assignment description
+- Create full-scale tests for the entire Decide Program #45 (only very partially due to its overlap with #21)
 
 ### Alexander Krantz
-- Task
+- Implement LIC 4 with unit test (#8)
+- Fix test for LIC 4 (#30)
+- Implement LIC 5 with unit test (#18)
+- Implement LIC 10 with unit test (#16)
+- Implement LIC 12 with unit test (#13)
+- Implement FUV generator with unit tests (#19)
+- All LIC function docblocks should reference the correct CMV variable (#38)
 
 ### Oscar Spolander
-- Task
+- Implement ContainsCircle function **(Pair-programming)**
+- Implement LIC1 with uniit test (#3)
+- Implement LIC6 with unit test (#10)
+- Implement PUM-generator with unit test (#20)
+- Write short report according to Essence (#46)
 
 
 
 ## How to run the code
 
-@TODO
+Thanks to the configuration of the `pom.xml` file, you can run, build and test the code in the most easy manner with your integrated IDE (like Intellij for ex.). 
+
+To run it via the command-line use `mvn exec:java`
 
 ---
 
